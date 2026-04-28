@@ -138,13 +138,14 @@ function Messenger() {
               <div className="user-avatar">{activeChat.avatar}</div>
               <div>
                 <h3>{activeChat.name}</h3>
-                <p>{activeChat.online ? 'Active Now' : 'Offline'}</p>
+                <p>{activeChat.online ? 'online' : 'offline'}</p>
               </div>
             </div>
             <div className="chat-actions">
-              <i className="ri-phone-line"></i>
               <i className="ri-vidicon-line"></i>
-              <i className="ri-information-line"></i>
+              <i className="ri-phone-line"></i>
+              <i className="ri-search-line"></i>
+              <i className="ri-more-2-fill"></i>
             </div>
           </header>
 
@@ -163,23 +164,20 @@ function Messenger() {
           </div>
 
           <form className="chat-input-area" onSubmit={handleSendMessage}>
+            <div className="input-actions">
+              <i className="ri-emotion-happy-line"></i>
+              <i className="ri-add-line"></i>
+            </div>
             <div className="input-wrapper">
-              <div className="input-actions">
-                <i className="ri-add-line"></i>
-              </div>
               <input 
                 type="text" 
-                placeholder="Type a message..." 
+                placeholder="Type a message" 
                 value={inputText}
                 onChange={(e) => setInputText(e.target.value)}
               />
-              <div className="input-actions">
-                <i className="ri-emotion-happy-line"></i>
-                <i className="ri-image-line"></i>
-              </div>
             </div>
             <button type="submit" className="send-btn">
-              <i className="ri-send-plane-fill"></i>
+              {inputText.trim() ? <i className="ri-send-plane-2-fill"></i> : <i className="ri-mic-line"></i>}
             </button>
           </form>
         </main>
