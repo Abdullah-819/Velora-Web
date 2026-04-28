@@ -7,45 +7,19 @@ const initialChats = [
     name: 'User Name',
     avatar: 'UN',
     lastMessage: 'Lorem ipsum dolor sit amet...',
-    time: '23:01',
-    unread: 2,
-    online: true,
-  },
-  {
-    id: 2,
-    name: 'Sarah Connor',
-    avatar: 'SC',
-    lastMessage: 'I\'ll be back.',
-    time: '22:45',
-    unread: 0,
-    online: true,
-  },
-  {
-    id: 3,
-    name: 'John Doe',
-    avatar: 'JD',
-    lastMessage: 'See you tomorrow!',
-    time: '21:15',
-    unread: 0,
-    online: false,
-  },
-  {
-    id: 4,
-    name: 'Jane Smith',
-    avatar: 'JS',
-    lastMessage: 'Thanks for the help!',
-    time: '20:30',
-    unread: 0,
-    online: true,
-  },
+  { id: 1, name: 'Abdullah Rana', lastMessage: 'Assalam-o-Alaikum! How are you?', time: '8:56 PM', avatar: 'AR', unread: 0, online: true, isGroup: false },
+  { id: 2, name: 'M Ahmed New', lastMessage: 'Voice call', time: '8:52 PM', avatar: 'MA', unread: 2, online: false, isGroup: false },
+  { id: 3, name: 'Ahmad Ali', lastMessage: 'You reacted ❤️ to "sure"', time: '2:46 PM', avatar: 'AA', unread: 0, online: true, isGroup: false },
+  { id: 4, name: 'Ali Raza', lastMessage: 'Missed voice call', time: '12:44 PM', avatar: 'AR', unread: 1, online: false, isGroup: false },
+  { id: 5, name: 'Computer Networks FA24', lastMessage: 'Ahmad: Event win karna walo ko 10 marks...', time: '11:43 AM', avatar: 'CN', unread: 5, online: true, isGroup: true },
+  { id: 6, name: 'Alliyan Khan', lastMessage: 'Yaar device toh dy dy main jaany laga hoon...', time: '11:00 AM', avatar: 'AK', unread: 1, online: false, isGroup: false },
+  { id: 7, name: 'Abdullah Qureshi', lastMessage: 'Incoming call', time: '1:51 AM', avatar: 'AQ', unread: 0, online: true, isGroup: false },
 ]
 
 const initialMessages = [
-  { id: 1, text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', time: '22:01', type: 'received' },
-  { id: 2, text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', time: '22:11', type: 'received' },
-  { id: 3, text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.', time: '22:15', type: 'received' },
-  { id: 4, text: 'Lorem ipsum dolor sit.', time: '22:25', type: 'sent' },
-  { id: 5, text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.', time: '22:32', type: 'received' },
+  { id: 1, chatId: 1, text: 'Assalam-o-Alaikum!', time: '10:00 AM', sender: 'other' },
+  { id: 2, chatId: 1, text: 'Walaikum Assalam! Kia haal hai?', time: '10:05 AM', sender: 'me' },
+  { id: 3, chatId: 1, text: 'Theek hoon, aap sunao kia ho raha hai aaj kal?', time: '10:10 AM', sender: 'other' },
 ]
 
 function Messenger() {
@@ -157,21 +131,27 @@ function Messenger() {
           <header className="panel-header">
             {/* Mobile Header Elements */}
             <div className="header-top mobile-only">
-              <h2>{currentTab === 'settings' ? 'Settings' : 'Chats'}</h2>
+              <div className="header-left">
+                <div className="more-btn"><i className="ri-more-2-fill"></i></div>
+              </div>
               <div className="header-actions">
                 <i className="ri-camera-line"></i>
-                <div className="add-btn"><i className="ri-add-line"></i></div>
-                <i className="ri-more-2-fill"></i>
+                {currentTab === 'messenger' && <div className="add-btn"><i className="ri-add-line"></i></div>}
+                {currentTab === 'calls' && <div className="add-btn"><i className="ri-add-line"></i></div>}
+                {currentTab === 'communities' && <div className="add-btn"><i className="ri-add-line"></i></div>}
               </div>
             </div>
 
             {/* Desktop Header Elements */}
             <h2 className="desktop-only">{currentTab === 'settings' ? 'Settings' : currentTab.charAt(0).toUpperCase() + currentTab.slice(1)}</h2>
+            <h1 className="mobile-only section-title">{currentTab === 'messenger' ? 'Chats' : currentTab.charAt(0).toUpperCase() + currentTab.slice(1)}</h1>
             
-            <div className="search-bar">
-              <i className="ri-search-line"></i>
-              <input type="text" placeholder={activeChat ? "Search..." : "Ask Meta AI or Search"} />
-            </div>
+            {(currentTab === 'messenger' || currentTab === 'settings') && (
+              <div className="search-bar">
+                <i className="ri-search-line"></i>
+                <input type="text" placeholder={currentTab === 'settings' ? "Search" : "Ask Meta AI or Search"} />
+              </div>
+            )}
 
             {currentTab === 'messenger' && (
               <div className="filter-pills mobile-only">
@@ -185,114 +165,218 @@ function Messenger() {
           
           <div className="user-list">
             {currentTab === 'messenger' && (
-              <div className="archived-section mobile-only">
-                <i className="ri-archive-line"></i>
-                <span>Archived</span>
-                <span className="archived-count">13</span>
-              </div>
-            )}
-            {currentTab === 'settings' ? (
-              <div className="settings-list">
-                <div className="settings-profile-header">
-                  <div className="settings-avatar">{userProfile.avatar}</div>
-                  <div className="settings-profile-info">
-                    <h4>{userProfile.name}</h4>
-                    <p>Available</p>
-                  </div>
+              <>
+                <div className="archived-section mobile-only">
+                  <i className="ri-archive-line"></i>
+                  <span>Archived</span>
+                  <span className="archived-count">11</span>
                 </div>
-
-                <div className="settings-nav-item active">
-                  <i className="ri-computer-line"></i>
-                  <div className="nav-text">
-                    <span>General</span>
-                    <p>Startup and close</p>
-                  </div>
-                </div>
-                <div className="settings-nav-item" onClick={updateProfileName}>
-                  <i className="ri-user-3-line"></i>
-                  <div className="nav-text">
-                    <span>Profile</span>
-                    <p>Name, profile photo</p>
-                  </div>
-                </div>
-                <div className="settings-nav-item">
-                  <i className="ri-key-2-line"></i>
-                  <div className="nav-text">
-                    <span>Account</span>
-                    <p>Security notifications</p>
-                  </div>
-                </div>
-                <div className="settings-nav-item">
-                  <i className="ri-lock-line"></i>
-                  <div className="nav-text">
-                    <span>Privacy</span>
-                    <p>Blocked contacts, disappearing messages</p>
-                  </div>
-                </div>
-                <div className="settings-nav-item">
-                  <i className="ri-chat-3-line"></i>
-                  <div className="nav-text">
-                    <span>Chats</span>
-                    <p>Theme, wallpaper, chat settings</p>
-                  </div>
-                </div>
-                <div className="settings-nav-item">
-                  <i className="ri-notification-3-line"></i>
-                  <div className="nav-text">
-                    <span>Notifications</span>
-                    <p>Messages, groups, sounds</p>
-                  </div>
-                </div>
-              </div>
-            ) : (
-              filteredChats.map(chat => (
-                <div 
-                  key={chat.id} 
-                  className={`user-item ${activeChat && activeChat.id === chat.id ? 'active' : ''}`}
-                  onClick={() => handleSelectChat(chat)}
-                >
-                  <div className="user-avatar" style={{ background: chat.online ? 'linear-gradient(135deg, #6557ff, #4e44cc)' : '' }}>
-                    {chat.avatar}
-                    {chat.online && <span className="status-dot"></span>}
-                  </div>
-                  <div className="user-info">
-                    <h4>{chat.name} {chat.isFavorite && <i className="ri-star-fill" style={{ color: '#ffc107', fontSize: '0.8rem' }}></i>}</h4>
-                    <p>{chat.isBlocked ? '[Blocked]' : chat.lastMessage}</p>
-                  </div>
-                  <div className="user-meta">
-                    <span>{chat.time}</span>
-                    {chat.unread > 0 && <span className="unread-count">{chat.unread}</span>}
-                  </div>
-
+                {filteredChats.map(chat => (
                   <div 
-                    className="item-actions-trigger" 
-                    onClick={(e) => {
-                      e.stopPropagation()
-                      setOpenMenuId(openMenuId === chat.id ? null : chat.id)
-                    }}
+                    key={chat.id} 
+                    className={`user-item ${activeChat && activeChat.id === chat.id ? 'active' : ''}`}
+                    onClick={() => handleSelectChat(chat)}
                   >
-                    <i className="ri-more-2-fill"></i>
-                    
-                    {openMenuId === chat.id && (
-                      <div className="context-menu">
-                        <div className="context-menu-item" onClick={() => toggleFavorite(chat.id)}>
-                          <i className={chat.isFavorite ? 'ri-star-line' : 'ri-star-fill'}></i>
-                          {chat.isFavorite ? 'Remove Favorite' : 'Mark Favorite'}
-                        </div>
-                        <div className="context-menu-item" onClick={() => startEditing(chat)}>
-                          <i className="ri-edit-line"></i>
-                          Update Name
-                        </div>
-                        <div className="context-menu-item danger" onClick={() => toggleBlock(chat.id)}>
-                          <i className="ri-forbid-line"></i>
-                          {chat.isBlocked ? 'Unblock User' : 'Block User'}
-                        </div>
-                      </div>
-                    )}
+                    <div className="user-avatar" style={{ background: chat.online ? 'linear-gradient(135deg, #6557ff, #4e44cc)' : '' }}>
+                      {chat.avatar}
+                      {chat.online && <span className="status-dot"></span>}
+                    </div>
+                    <div className="user-info">
+                      <h4>{chat.name} {chat.isFavorite && <i className="ri-star-fill" style={{ color: '#ffc107', fontSize: '0.8rem' }}></i>}</h4>
+                      <p>{chat.lastMessage}</p>
+                    </div>
+                    <div className="user-meta">
+                      <span className={chat.unread > 0 ? 'unread-time' : ''}>{chat.time}</span>
+                      {chat.unread > 0 && <span className="unread-count">{chat.unread}</span>}
+                    </div>
+                  </div>
+                ))}
+              </>
+            )}
+
+            {currentTab === 'updates' && (
+              <div className="updates-section">
+                <div className="updates-header">
+                  <h3>Status</h3>
+                  <div className="updates-actions">
+                    <i className="ri-camera-line"></i>
+                    <i className="ri-pencil-line"></i>
                   </div>
                 </div>
-              ))
+                <div className="status-tray">
+                  <div className="status-item add">
+                    <div className="status-avatar">
+                      <i className="ri-user-fill"></i>
+                      <div className="add-status-badge">+</div>
+                    </div>
+                    <span>Add status</span>
+                  </div>
+                  <div className="status-item">
+                    <div className="status-avatar viewed">
+                      <div className="avatar-img">IK</div>
+                    </div>
+                    <span>Ikram 💀</span>
+                  </div>
+                  <div className="status-item">
+                    <div className="status-avatar unviewed">
+                      <div className="avatar-img">AH</div>
+                    </div>
+                    <span>Abdul Haq Ac</span>
+                  </div>
+                </div>
+                <div className="channels-section">
+                  <div className="channels-header">
+                    <h3>Channels</h3>
+                    <button className="explore-btn">Explore</button>
+                  </div>
+                  <div className="channel-item">
+                    <div className="channel-avatar"><i className="ri-newspaper-line"></i></div>
+                    <div className="channel-info">
+                      <h4>The New York Times</h4>
+                      <p>The Champions League semifinals get underway today...</p>
+                    </div>
+                    <div className="channel-meta">
+                      <span>8:49 PM</span>
+                      <span className="unread-count">999+</span>
+                    </div>
+                  </div>
+                  <div className="channel-item">
+                    <div className="channel-avatar"><i className="ri-graduation-cap-line"></i></div>
+                    <div className="channel-info">
+                      <h4>PakEduCareer Educational Updates</h4>
+                      <p>Clinical Trials Summit of Pakistan (CTSP) 2026...</p>
+                    </div>
+                    <div className="channel-meta">
+                      <span>7:52 PM</span>
+                      <span className="unread-count">15</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
             )}
+
+            {currentTab === 'calls' && (
+              <div className="calls-section">
+                <div className="calls-top-actions">
+                  <div className="call-action">
+                    <div className="action-icon"><i className="ri-phone-line"></i></div>
+                    <span>Call</span>
+                  </div>
+                  <div className="call-action">
+                    <div className="action-icon"><i className="ri-calendar-line"></i></div>
+                    <span>Schedule</span>
+                  </div>
+                  <div className="call-action">
+                    <div className="action-icon"><i className="ri-keyboard-line"></i></div>
+                    <span>Keypad</span>
+                  </div>
+                </div>
+                <h3>Recent</h3>
+                <div className="call-item">
+                  <div className="user-avatar">MA</div>
+                  <div className="call-info">
+                    <h4>M Ahmed New</h4>
+                    <p><i className="ri-arrow-right-up-line"></i> Outgoing</p>
+                  </div>
+                  <div className="call-meta">
+                    <span>8:52 PM</span>
+                    <i className="ri-information-line"></i>
+                  </div>
+                </div>
+                <div className="call-item missed">
+                  <div className="user-avatar">AA</div>
+                  <div className="call-info">
+                    <h4>Abd Asif</h4>
+                    <p><i className="ri-arrow-left-down-line"></i> Missed</p>
+                  </div>
+                  <div className="call-meta">
+                    <span>12:44 PM</span>
+                    <i className="ri-information-line"></i>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {currentTab === 'communities' && (
+              <div className="communities-section">
+                <div className="community-group">
+                  <div className="group-header">
+                    <h4>SOFTEC'26</h4>
+                    <button className="see-all">See all</button>
+                  </div>
+                  <div className="community-item">
+                    <div className="item-icon"><i className="ri-notification-3-line"></i></div>
+                    <div className="item-content">
+                      <p>New groups "SOFTEC'26 Cybersecurity Participants" added</p>
+                    </div>
+                    <div className="item-dot"></div>
+                  </div>
+                  <div className="community-item">
+                    <div className="item-icon"><i className="ri-megaphone-line"></i></div>
+                    <div className="item-content">
+                      <h4>Announcements</h4>
+                      <p>~ ayesha: ROBORUMBLE STARTING SHORTLY</p>
+                    </div>
+                    <div className="item-meta">19/04/2026</div>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {currentTab === 'settings' && (
+              <div className="settings-section">
+                <div className="profile-hero">
+                  <div className="profile-bubble">
+                    <div className="quote-bubble">Silent tear hold's the loudest pain ❤️</div>
+                    <div className="profile-avatar-large">{userProfile.avatar}</div>
+                  </div>
+                  <h2>{userProfile.name}</h2>
+                </div>
+                
+                <div className="settings-card">
+                  <div className="settings-item">
+                    <i className="ri-archive-line"></i>
+                    <span>Lists</span>
+                    <i className="ri-arrow-right-s-line"></i>
+                  </div>
+                  <div className="settings-item">
+                    <i className="ri-star-line"></i>
+                    <span>Starred</span>
+                    <i className="ri-arrow-right-s-line"></i>
+                  </div>
+                  <div className="settings-item">
+                    <i className="ri-megaphone-line"></i>
+                    <span>Broadcast messages</span>
+                    <i className="ri-arrow-right-s-line"></i>
+                  </div>
+                  <div className="settings-item">
+                    <i className="ri-computer-line"></i>
+                    <span>Linked devices</span>
+                    <i className="ri-arrow-right-s-line"></i>
+                  </div>
+                </div>
+
+                <div className="settings-card">
+                  <div className="settings-item">
+                    <i className="ri-key-line"></i>
+                    <span>Account</span>
+                    <i className="ri-arrow-right-s-line"></i>
+                  </div>
+                  <div className="settings-item">
+                    <i className="ri-lock-line"></i>
+                    <span>Privacy</span>
+                    <i className="ri-arrow-right-s-line"></i>
+                  </div>
+                  <div className="settings-item">
+                    <i className="ri-chat-3-line"></i>
+                    <span>Chats</span>
+                    <i className="ri-arrow-right-s-line"></i>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+        </section>
           </div>
         </section>
 
