@@ -443,11 +443,13 @@
 
 /* Chat Input Area */
 .chat-input-area {
-  padding: 10px 16px;
-  background: rgba(18, 28, 68, 0.4);
+  padding: 16px 24px;
+  background: rgba(2, 6, 23, 0.6);
+  backdrop-filter: blur(20px);
+  border-top: 1px solid var(--glass-border);
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 16px;
   z-index: 10;
 }
 
