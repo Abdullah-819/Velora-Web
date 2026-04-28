@@ -436,10 +436,10 @@ function Messenger() {
                     <div key={msg.id} className={`message-item ${msg.type}`}>
                       <div className="message-bubble">
                         {msg.text}
-                      </div>
-                      <div className="message-time">
-                        {msg.time}
-                        {msg.type === 'sent' && <i className="ri-check-double-line"></i>}
+                        <div className="message-time">
+                          {msg.time}
+                          {msg.type === 'sent' && <i className="ri-check-double-line"></i>}
+                        </div>
                       </div>
                     </div>
                   ))}
