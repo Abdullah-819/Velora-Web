@@ -380,6 +380,37 @@ body {
   .auth-card h1 {
     font-size: 2.2rem;
   }
+
+  .auth-role-switch {
+    padding: 6px;
+    margin-bottom: 24px;
+  }
+
+  .auth-role-switch button {
+    padding: 12px 10px;
+    font-size: 0.95rem;
+  }
+
+  .auth-form {
+    gap: 16px;
+  }
+
+  .auth-form input {
+    padding: 14px 16px;
+    font-size: 1rem;
+  }
+
+  .auth-form button {
+    margin-top: 14px;
+    padding: 14px 20px;
+    font-size: 1.05rem;
+  }
+
+  .auth-footer {
+    margin-top: 32px;
+    text-align: center;
+    font-size: 0.95rem;
+  }
 }
 
 .sr-only {
