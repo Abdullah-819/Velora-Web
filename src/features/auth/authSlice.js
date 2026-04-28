@@ -40,9 +40,9 @@ const authSlice = createSlice({
         state.user = action.payload.user
         state.token = action.payload.token
       })
-      .addCase(login.rejected, (state) => {
+      .addCase(login.rejected, (state, action) => {
         state.status = 'failed'
-        state.error = 'Unable to login. Please try again.'
+        state.error = action.error.message || 'Unable to login. Please try again.'
       })
       .addCase(register.pending, (state) => {
         state.status = 'loading'
@@ -53,9 +53,10 @@ const authSlice = createSlice({
         state.user = action.payload.user
         state.token = action.payload.token
       })
-      .addCase(register.rejected, (state) => {
+      .addCase(register.rejected, (state, action) => {
         state.status = 'failed'
-        state.error = 'Unable to create account. Please try again.'
+        state.error =
+          action.error.message || 'Unable to create account. Please try again.'
       })
   },
 })
