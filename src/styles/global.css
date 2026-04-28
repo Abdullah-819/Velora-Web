@@ -1,16 +1,16 @@
 :root {
-  --bg: #f2f6fd;
+  --bg: #090f23;
   --card-bg: #ffffff;
-  --text-main: #111827;
-  --text-muted: #73809a;
-  --primary: #3f35e8;
+  --text-main: #e8eeff;
+  --text-muted: #b9c6ea;
+  --primary: #6557ff;
   --primary-hover: #2f28be;
-  --input-border: #6a63f0;
+  --input-border: #7f8cff;
   --input-focus: rgba(184, 180, 255, 0.35);
   --glass-border: rgba(255, 255, 255, 0.28);
-  --glass-bg: rgba(255, 255, 255, 0.12);
+  --glass-bg: rgba(255, 255, 255, 0.1);
   --error: #dc2626;
-  --shadow: 0 24px 46px rgba(19, 36, 77, 0.18);
+  --shadow: 0 26px 60px rgba(3, 8, 29, 0.52);
 }
 
 * {
@@ -23,9 +23,12 @@ body {
   font-family: Inter, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
   color: var(--text-main);
   background:
-    radial-gradient(circle at top right, rgba(69, 92, 255, 0.12), transparent 40%),
-    radial-gradient(circle at bottom left, rgba(0, 180, 216, 0.14), transparent 35%),
+    radial-gradient(circle at 18% 14%, rgba(91, 121, 255, 0.45), transparent 32%),
+    radial-gradient(circle at 78% 18%, rgba(85, 206, 255, 0.35), transparent 34%),
+    radial-gradient(circle at 26% 85%, rgba(145, 85, 255, 0.3), transparent 38%),
+    radial-gradient(circle at 84% 76%, rgba(59, 142, 255, 0.28), transparent 36%),
     var(--bg);
+  background-attachment: fixed;
 }
 
 #root {
@@ -44,14 +47,16 @@ body {
   width: min(980px, 100%);
   display: grid;
   grid-template-columns: 1fr 1fr;
-  border-radius: 16px;
+  border-radius: 22px;
   overflow: hidden;
   box-shadow: var(--shadow);
-  background: #e9eefb;
+  background: rgba(108, 128, 255, 0.12);
+  border: 1px solid rgba(210, 220, 255, 0.22);
+  backdrop-filter: blur(18px);
 }
 
 .auth-visual {
-  background: linear-gradient(165deg, #ffffff 0%, #e9f0ff 100%);
+  background: linear-gradient(165deg, rgba(13, 27, 68, 0.68) 0%, rgba(31, 53, 118, 0.62) 100%);
   padding: 40px 34px;
   display: flex;
   flex-direction: column;
@@ -63,8 +68,10 @@ body {
   border-radius: 14px;
   position: relative;
   background:
-    linear-gradient(115deg, rgba(63, 53, 232, 0.15), rgba(46, 198, 255, 0.16)),
-    #f3f7ff;
+    linear-gradient(115deg, rgba(127, 164, 255, 0.24), rgba(99, 231, 255, 0.16)),
+    rgba(237, 242, 255, 0.08);
+  border: 1px solid rgba(236, 242, 255, 0.28);
+  backdrop-filter: blur(10px);
   margin-bottom: 24px;
   overflow: hidden;
 }
@@ -73,7 +80,7 @@ body {
   position: absolute;
   width: 76px;
   height: 8px;
-  background: #3f35e8;
+  background: #95a4ff;
   left: 52px;
   bottom: 58px;
   border-radius: 6px;
@@ -83,11 +90,11 @@ body {
   position: absolute;
   width: 95px;
   height: 62px;
-  border: 5px solid #3f35e8;
+  border: 5px solid #95a4ff;
   left: 43px;
   bottom: 66px;
   border-radius: 8px;
-  background: linear-gradient(140deg, #ffffff, #edf2ff);
+  background: linear-gradient(140deg, rgba(255, 255, 255, 0.55), rgba(213, 224, 255, 0.3));
 }
 
 .auth-person {
@@ -96,7 +103,7 @@ body {
   bottom: 44px;
   width: 86px;
   height: 110px;
-  background: linear-gradient(180deg, #3f35e8 0%, #201b86 100%);
+  background: linear-gradient(180deg, #9aa6ff 0%, #616cf0 100%);
   clip-path: polygon(46% 0, 76% 14%, 93% 44%, 76% 100%, 27% 100%, 3% 52%, 14% 18%);
 }
 
@@ -104,17 +111,20 @@ body {
   margin: 0;
   font-size: 1.45rem;
   line-height: 1.2;
+  color: #eef2ff;
 }
 
 .auth-visual p {
   margin: 10px 0 0;
-  color: var(--text-muted);
+  color: rgba(230, 236, 255, 0.8);
   line-height: 1.55;
 }
 
 .auth-card {
   width: 100%;
-  background: linear-gradient(170deg, #4035ea 0%, #3027ba 100%);
+  background: linear-gradient(165deg, rgba(91, 77, 255, 0.7) 0%, rgba(50, 39, 186, 0.7) 100%);
+  border-left: 1px solid rgba(227, 233, 255, 0.25);
+  backdrop-filter: blur(16px);
   color: #f8f8ff;
   padding: 34px 34px 30px;
   position: relative;
@@ -125,7 +135,9 @@ body {
   content: '';
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at top right, rgba(255, 255, 255, 0.25), transparent 45%);
+  background:
+    radial-gradient(circle at top right, rgba(255, 255, 255, 0.24), transparent 48%),
+    radial-gradient(circle at bottom left, rgba(130, 255, 255, 0.18), transparent 42%);
   pointer-events: none;
   z-index: -1;
 }
@@ -242,7 +254,7 @@ body {
   min-height: 44px;
   font-size: 0.95rem;
   font-weight: 600;
-  color: #2f28be;
+  color: #1f177e;
   background: linear-gradient(180deg, #ffc943 0%, #ffb100 100%);
   cursor: pointer;
   transition: transform 0.25s ease, filter 0.2s ease, box-shadow 0.25s ease;
@@ -294,6 +306,32 @@ body {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+}
+
+.boot-screen {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 22px;
+}
+
+.boot-glass {
+  width: min(390px, 100%);
+  border-radius: 24px;
+  border: 1px solid rgba(227, 233, 255, 0.28);
+  background: linear-gradient(160deg, rgba(103, 118, 255, 0.34), rgba(49, 35, 149, 0.38));
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(20px);
+  padding: 32px 24px;
+  display: grid;
+  place-items: center;
+  gap: 14px;
+}
+
+.boot-glass p {
+  margin: 0;
+  color: rgba(238, 242, 255, 0.88);
+  font-weight: 500;
 }
 
 @media (max-width: 920px) {
