@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from '../../app/hooks'
+import Loader from '../../components/Loader'
 import { register } from './authSlice'
 
 function Register() {
@@ -69,7 +70,14 @@ function Register() {
             {error && <p className="auth-error">{error}</p>}
 
             <button type="submit" disabled={isLoading}>
-              {isLoading ? 'Creating account...' : 'Create account'}
+              {isLoading ? (
+                <>
+                  <Loader size={16} />
+                  Creating account...
+                </>
+              ) : (
+                'Create account'
+              )}
             </button>
           </form>
 
