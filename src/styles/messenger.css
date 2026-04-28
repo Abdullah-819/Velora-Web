@@ -761,6 +761,7 @@
   .messenger-shell {
     grid-template-columns: 1fr;
     height: 100dvh;
+    backdrop-filter: blur(10px); /* Reduced blur for performance */
   }
 
   .messenger-panel.mobile-hidden,

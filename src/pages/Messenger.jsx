@@ -50,11 +50,12 @@ const initialMessages = [
 
 function Messenger() {
   const [currentTab, setCurrentTab] = useState('messenger')
-  const [activeChat, setActiveChat] = useState(initialChats[0])
+  const [activeChat, setActiveChat] = useState(null)
   const [chats, setChats] = useState(initialChats.map(c => ({ ...c, isFavorite: false, isBlocked: false })))
   const [messages, setMessages] = useState(initialMessages)
   const [inputText, setInputText] = useState('')
   const [openMenuId, setOpenMenuId] = useState(null)
+  const [filter, setFilter] = useState('all')
   const [editingContact, setEditingContact] = useState(null)
   const [newName, setNewName] = useState('')
   const [userProfile, setUserProfile] = useState({
@@ -117,6 +118,9 @@ function Messenger() {
 
   const filteredChats = chats.filter(chat => {
     if (currentTab === 'favorites') return chat.isFavorite
+    if (filter === 'unread') return chat.unread > 0
+    if (filter === 'favorites') return chat.isFavorite
+    if (filter === 'groups') return chat.isGroup // Note: added isGroup logic if available
     return true
   })
 
@@ -171,10 +175,10 @@ function Messenger() {
 
             {currentTab === 'messenger' && (
               <div className="filter-pills mobile-only">
-                <div className="pill active">All</div>
-                <div className="pill">Unread</div>
-                <div className="pill">Favorites</div>
-                <div className="pill">Groups</div>
+                <div className={`pill ${filter === 'all' ? 'active' : ''}`} onClick={() => setFilter('all')}>All</div>
+                <div className={`pill ${filter === 'unread' ? 'active' : ''}`} onClick={() => setFilter('unread')}>Unread</div>
+                <div className={`pill ${filter === 'favorites' ? 'active' : ''}`} onClick={() => setFilter('favorites')}>Favorites</div>
+                <div className={`pill ${filter === 'groups' ? 'active' : ''}`} onClick={() => setFilter('groups')}>Groups</div>
               </div>
             )}
           </header>
@@ -329,9 +333,12 @@ function Messenger() {
           <main className={`chat-window ${!activeChat ? 'mobile-hidden' : ''}`}>
             <header className="chat-header">
               <div className="chat-user-profile">
-                <div className="back-btn mobile-only" onClick={() => setActiveChat(null)}>
+                <div className="back-btn mobile-only" onClick={() => {
+                  setActiveChat(null)
+                  setOpenMenuId(null)
+                }}>
                   <i className="ri-arrow-left-line"></i>
-                  {chats.find(c => c.unread > 0) && <span className="unread-back-badge">38</span>}
+                  {chats.some(c => c.unread > 0) && <span className="unread-back-badge">38</span>}
                 </div>
                 <div className="user-avatar">{activeChat.avatar}</div>
                 <div>
