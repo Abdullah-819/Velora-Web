@@ -1,11 +1,13 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from '../../app/hooks'
 import Loader from '../../components/Loader'
 import { login } from './authSlice'
 
 function Login() {
   const dispatch = useAppDispatch()
+  const navigate = useNavigate()
   const { status, error } = useAppSelector((state) => state.auth)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -15,7 +17,11 @@ function Login() {
 
   const handleSubmit = async (event) => {
     event.preventDefault()
-    await dispatch(login({ email, password, role }))
+    const result = await dispatch(login({ email, password, role }))
+
+    if (login.fulfilled.match(result)) {
+      navigate(role === 'admin' ? '/admin-dashboard' : '/login')
+    }
   }
 
   return (
