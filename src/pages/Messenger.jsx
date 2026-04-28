@@ -244,7 +244,7 @@ function Messenger() {
               filteredChats.map(chat => (
                 <div 
                   key={chat.id} 
-                  className={`user-item ${activeChat.id === chat.id ? 'active' : ''}`}
+                  className={`user-item ${activeChat && activeChat.id === chat.id ? 'active' : ''}`}
                   onClick={() => handleSelectChat(chat)}
                 >
                   <div className="user-avatar" style={{ background: chat.online ? 'linear-gradient(135deg, #6557ff, #4e44cc)' : '' }}>
@@ -383,25 +383,25 @@ function Messenger() {
 
         {/* Mobile Navigation Bar */}
         <nav className="mobile-nav mobile-only">
-          <div className="nav-item">
+          <div className={`nav-item ${currentTab === 'updates' ? 'active' : ''}`} onClick={() => setCurrentTab('updates')}>
             <i className="ri-donut-chart-line"></i>
             <span>Updates</span>
           </div>
-          <div className="nav-item">
+          <div className={`nav-item ${currentTab === 'calls' ? 'active' : ''}`} onClick={() => setCurrentTab('calls')}>
             <i className="ri-phone-line"></i>
             <span>Calls</span>
           </div>
-          <div className="nav-item">
+          <div className={`nav-item ${currentTab === 'communities' ? 'active' : ''}`} onClick={() => setCurrentTab('communities')}>
             <i className="ri-group-line"></i>
             <span>Communities</span>
           </div>
-          <div className="nav-item active">
+          <div className={`nav-item ${currentTab === 'messenger' ? 'active' : ''}`} onClick={() => setCurrentTab('messenger')}>
             <div className="nav-badge">38</div>
             <i className="ri-chat-3-fill"></i>
             <span>Chats</span>
           </div>
-          <div className="nav-item">
-            <div className="nav-avatar">A</div>
+          <div className={`nav-item ${currentTab === 'settings' ? 'active' : ''}`} onClick={() => setCurrentTab('settings')}>
+            <div className="nav-avatar">{userProfile.avatar}</div>
             <span>You</span>
           </div>
         </nav>
