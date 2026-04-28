@@ -55,6 +55,8 @@ function Messenger() {
   const [messages, setMessages] = useState(initialMessages)
   const [inputText, setInputText] = useState('')
   const [openMenuId, setOpenMenuId] = useState(null)
+  const [editingContact, setEditingContact] = useState(null)
+  const [newName, setNewName] = useState('')
 
   const handleSendMessage = (e) => {
     e.preventDefault()
@@ -81,12 +83,17 @@ function Messenger() {
     setOpenMenuId(null)
   }
 
-  const updateContactName = (id) => {
-    const newName = window.prompt('Enter new name:')
-    if (newName) {
-      setChats(chats.map(c => c.id === id ? { ...c, name: newName } : c))
-    }
+  const startEditing = (contact) => {
+    setEditingContact(contact)
+    setNewName(contact.name)
     setOpenMenuId(null)
+  }
+
+  const saveNewName = () => {
+    if (newName.trim()) {
+      setChats(chats.map(c => c.id === editingContact.id ? { ...c, name: newName.trim() } : c))
+    }
+    setEditingContact(null)
   }
 
   const filteredChats = chats.filter(chat => {
@@ -168,7 +175,7 @@ function Messenger() {
                         <i className={chat.isFavorite ? 'ri-star-line' : 'ri-star-fill'}></i>
                         {chat.isFavorite ? 'Remove Favorite' : 'Mark Favorite'}
                       </div>
-                      <div className="context-menu-item" onClick={() => updateContactName(chat.id)}>
+                      <div className="context-menu-item" onClick={() => startEditing(chat)}>
                         <i className="ri-edit-line"></i>
                         Update Name
                       </div>
@@ -183,6 +190,28 @@ function Messenger() {
             ))}
           </div>
         </section>
+
+        {/* Modal for editing contact name */}
+        {editingContact && (
+          <div className="modal-overlay" onClick={() => setEditingContact(null)}>
+            <div className="modal-content" onClick={e => e.stopPropagation()}>
+              <h3>Update Name</h3>
+              <p>Change the display name for this contact.</p>
+              <input 
+                className="modal-input"
+                type="text" 
+                value={newName} 
+                onChange={e => setNewName(e.target.value)}
+                autoFocus
+                onKeyDown={e => e.key === 'Enter' && saveNewName()}
+              />
+              <div className="modal-actions">
+                <button className="modal-btn cancel" onClick={() => setEditingContact(null)}>Cancel</button>
+                <button className="modal-btn save" onClick={saveNewName}>Save Changes</button>
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Chat Window */}
         <main className="chat-window">
