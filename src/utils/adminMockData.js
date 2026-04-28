@@ -24,11 +24,11 @@ export const sidebarSections = [
   },
 ]
 
-export const statCards = [
-  { label: 'Total Users', value: '2,500', trend: '+4.5% from last week', trendDirection: 'up' },
-  { label: 'Average Session', value: '123.5m', trend: '+2.3% from last week', trendDirection: 'up' },
-  { label: 'Total Collections', value: '7,325', trend: '-1.1% from last week', trendDirection: 'down' },
-  { label: 'Active Connections', value: '2,315', trend: '+3.4% from last week', trendDirection: 'up' },
+export const statCardMeta = [
+  { key: 'totalUsers', label: 'Total Users', trend: '+4.5% from last week', trendDirection: 'up' },
+  { key: 'onlineUsers', label: 'Online Users', trend: '+2.1% from last week', trendDirection: 'up' },
+  { key: 'totalGroups', label: 'Groups Created', trend: '+1.3% from last week', trendDirection: 'up' },
+  { key: 'activeChatsToday', label: 'Active Chats Today', trend: '+5.2% from yesterday', trendDirection: 'up' },
 ]
 
 export const campaignPerformance = [
@@ -50,4 +50,55 @@ export const quickSettings = [
   'Auto renew enabled',
   '2FA enforcement active',
   'Backup completed',
+]
+
+export const initialUsers = [
+  {
+    id: 'u_101',
+    username: 'Areeba Khan',
+    email: 'areeba@velora.com',
+    status: 'online',
+    groupsCount: 5,
+    lastActive: 'Just now',
+  },
+  {
+    id: 'u_102',
+    username: 'Ali Raza',
+    email: 'ali.raza@velora.com',
+    status: 'offline',
+    groupsCount: 3,
+    lastActive: '8m ago',
+  },
+  {
+    id: 'u_103',
+    username: 'Sara Ahmed',
+    email: 'sara@velora.com',
+    status: 'online',
+    groupsCount: 8,
+    lastActive: '2m ago',
+  },
+  {
+    id: 'u_104',
+    username: 'Hamza Qureshi',
+    email: 'hamza@velora.com',
+    status: 'offline',
+    groupsCount: 2,
+    lastActive: '22m ago',
+  },
+  {
+    id: 'u_105',
+    username: 'Noor Fatima',
+    email: 'noor@velora.com',
+    status: 'online',
+    groupsCount: 4,
+    lastActive: 'Just now',
+  },
+]
+
+export const initialGroups = [
+  { id: 'g_201', name: 'Design Team', memberCount: 12, activeToday: true },
+  { id: 'g_202', name: 'Frontend Guild', memberCount: 18, activeToday: true },
+  { id: 'g_203', name: 'Backend Squad', memberCount: 9, activeToday: false },
+  { id: 'g_204', name: 'Product Ops', memberCount: 7, activeToday: true },
+  { id: 'g_205', name: 'Moderators', memberCount: 6, activeToday: false },
 ]
