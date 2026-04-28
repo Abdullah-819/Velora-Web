@@ -49,10 +49,12 @@ const initialMessages = [
 ]
 
 function Messenger() {
+  const [currentTab, setCurrentTab] = useState('messenger')
   const [activeChat, setActiveChat] = useState(initialChats[0])
+  const [chats, setChats] = useState(initialChats.map(c => ({ ...c, isFavorite: false, isBlocked: false })))
   const [messages, setMessages] = useState(initialMessages)
   const [inputText, setInputText] = useState('')
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false)
+  const [openMenuId, setOpenMenuId] = useState(null)
 
   const handleSendMessage = (e) => {
     e.preventDefault()
@@ -69,24 +71,47 @@ function Messenger() {
     setInputText('')
   }
 
+  const toggleFavorite = (id) => {
+    setChats(chats.map(c => c.id === id ? { ...c, isFavorite: !c.isFavorite } : c))
+    setOpenMenuId(null)
+  }
+
+  const toggleBlock = (id) => {
+    setChats(chats.map(c => c.id === id ? { ...c, isBlocked: !c.isBlocked } : c))
+    setOpenMenuId(null)
+  }
+
+  const updateContactName = (id) => {
+    const newName = window.prompt('Enter new name:')
+    if (newName) {
+      setChats(chats.map(c => c.id === id ? { ...c, name: newName } : c))
+    }
+    setOpenMenuId(null)
+  }
+
+  const filteredChats = chats.filter(chat => {
+    if (currentTab === 'favorites') return chat.isFavorite
+    return true
+  })
+
   return (
     <div className="messenger-page">
       <div className="messenger-shell">
         {/* Sidebar */}
         <aside className="messenger-sidebar">
-          <div className="sidebar-icon active">
+          <div className={`sidebar-icon ${currentTab === 'home' ? 'active' : ''}`} onClick={() => setCurrentTab('home')}>
             <i className="ri-home-line"></i>
           </div>
-          <div className="sidebar-icon">
+          <div className={`sidebar-icon ${currentTab === 'messenger' ? 'active' : ''}`} onClick={() => setCurrentTab('messenger')}>
             <i className="ri-messenger-line"></i>
           </div>
-          <div className="sidebar-icon">
+          <div className={`sidebar-icon ${currentTab === 'favorites' ? 'active' : ''}`} onClick={() => setCurrentTab('favorites')}>
             <i className="ri-star-line"></i>
           </div>
-          <div className="sidebar-icon">
+          <div className={`sidebar-icon ${currentTab === 'contacts' ? 'active' : ''}`} onClick={() => setCurrentTab('contacts')}>
             <i className="ri-contacts-line"></i>
           </div>
-          <div className="sidebar-icon">
+          <div className={`sidebar-icon ${currentTab === 'settings' ? 'active' : ''}`} onClick={() => setCurrentTab('settings')}>
             <i className="ri-settings-3-line"></i>
           </div>
           
@@ -100,15 +125,15 @@ function Messenger() {
         {/* Panel / User List */}
         <section className="messenger-panel">
           <header className="panel-header">
-            <h2>Messages</h2>
+            <h2>{currentTab.charAt(0).toUpperCase() + currentTab.slice(1)}</h2>
             <div className="search-bar">
               <i className="ri-search-line"></i>
-              <input type="text" placeholder="Search conversations..." />
+              <input type="text" placeholder="Search..." />
             </div>
           </header>
           
           <div className="user-list">
-            {initialChats.map(chat => (
+            {filteredChats.map(chat => (
               <div 
                 key={chat.id} 
                 className={`user-item ${activeChat.id === chat.id ? 'active' : ''}`}
@@ -119,12 +144,40 @@ function Messenger() {
                   {chat.online && <span className="status-dot"></span>}
                 </div>
                 <div className="user-info">
-                  <h4>{chat.name}</h4>
-                  <p>{chat.lastMessage}</p>
+                  <h4>{chat.name} {chat.isFavorite && <i className="ri-star-fill" style={{ color: '#ffc107', fontSize: '0.8rem' }}></i>}</h4>
+                  <p>{chat.isBlocked ? '[Blocked]' : chat.lastMessage}</p>
                 </div>
                 <div className="user-meta">
                   <span>{chat.time}</span>
                   {chat.unread > 0 && <span className="unread-count">{chat.unread}</span>}
+                </div>
+
+                {/* Actions Trigger */}
+                <div 
+                  className="item-actions-trigger" 
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    setOpenMenuId(openMenuId === chat.id ? null : chat.id)
+                  }}
+                >
+                  <i className="ri-more-2-fill"></i>
+                  
+                  {openMenuId === chat.id && (
+                    <div className="context-menu">
+                      <div className="context-menu-item" onClick={() => toggleFavorite(chat.id)}>
+                        <i className={chat.isFavorite ? 'ri-star-line' : 'ri-star-fill'}></i>
+                        {chat.isFavorite ? 'Remove Favorite' : 'Mark Favorite'}
+                      </div>
+                      <div className="context-menu-item" onClick={() => updateContactName(chat.id)}>
+                        <i className="ri-edit-line"></i>
+                        Update Name
+                      </div>
+                      <div className="context-menu-item danger" onClick={() => toggleBlock(chat.id)}>
+                        <i className="ri-forbid-line"></i>
+                        {chat.isBlocked ? 'Unblock User' : 'Block User'}
+                      </div>
+                    </div>
+                  )}
                 </div>
               </div>
             ))}
