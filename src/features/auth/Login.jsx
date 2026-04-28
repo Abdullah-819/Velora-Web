@@ -8,52 +8,82 @@ function Login() {
   const { status, error } = useAppSelector((state) => state.auth)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [role, setRole] = useState('user')
 
   const isLoading = status === 'loading'
 
   const handleSubmit = async (event) => {
     event.preventDefault()
-    await dispatch(login({ email, password }))
+    await dispatch(login({ email, password, role }))
   }
 
   return (
     <main className="auth-page">
-      <section className="auth-card">
-        <p className="auth-brand">Velora Web</p>
-        <h1>Welcome back</h1>
-        <p className="auth-subtitle">Sign in to continue your conversations.</p>
+      <section className="auth-shell">
+        <aside className="auth-visual auth-visual-login">
+          <div className="auth-visual-scene">
+            <div className="auth-stand" />
+            <div className="auth-screen" />
+            <div className="auth-person" />
+          </div>
+          <h2>Secure communication starts here</h2>
+          <p>Collaborate in real time with organized channels and smart alerts.</p>
+        </aside>
 
-        <form className="auth-form" onSubmit={handleSubmit}>
-          <label htmlFor="email">Email</label>
-          <input
-            id="email"
-            type="email"
-            placeholder="you@example.com"
-            value={email}
-            onChange={(event) => setEmail(event.target.value)}
-            required
-          />
+        <section className="auth-card auth-card-accent">
+          <p className="auth-brand">Velora Web</p>
+          <h1>Sign In</h1>
+          <p className="auth-subtitle">Access your account as user or admin.</p>
 
-          <label htmlFor="password">Password</label>
-          <input
-            id="password"
-            type="password"
-            placeholder="Enter password"
-            value={password}
-            onChange={(event) => setPassword(event.target.value)}
-            required
-          />
+          <div className="auth-role-switch" aria-label="Login role selector">
+            <button
+              type="button"
+              className={role === 'user' ? 'is-active' : ''}
+              onClick={() => setRole('user')}
+            >
+              User login
+            </button>
+            <button
+              type="button"
+              className={role === 'admin' ? 'is-active' : ''}
+              onClick={() => setRole('admin')}
+            >
+              Admin login
+            </button>
+          </div>
 
-          {error && <p className="auth-error">{error}</p>}
+          <form className="auth-form" onSubmit={handleSubmit}>
+            <label htmlFor="email">Email</label>
+            <input
+              id="email"
+              type="email"
+              placeholder={role === 'admin' ? 'admin@velora.com' : 'you@example.com'}
+              value={email}
+              onChange={(event) => setEmail(event.target.value)}
+              required
+            />
 
-          <button type="submit" disabled={isLoading}>
-            {isLoading ? 'Signing in...' : 'Sign in'}
-          </button>
-        </form>
+            <label htmlFor="password">Password</label>
+            <input
+              id="password"
+              type="password"
+              placeholder={role === 'admin' ? 'Admin password' : 'Enter password'}
+              value={password}
+              onChange={(event) => setPassword(event.target.value)}
+              required
+            />
 
-        <p className="auth-footer">
-          New to Velora? <Link to="/register">Create an account</Link>
-        </p>
+            {error && <p className="auth-error">{error}</p>}
+
+            <button type="submit" disabled={isLoading}>
+              {isLoading ? 'Signing in...' : `Sign in as ${role}`}
+            </button>
+          </form>
+
+          <p className="auth-footer">
+            New to Velora? <Link to="/register">Create an account</Link>
+          </p>
+        </section>
       </section>
     </main>
   )
