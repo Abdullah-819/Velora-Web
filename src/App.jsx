@@ -3,6 +3,7 @@ import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 import AppBootLoader from './components/AppBootLoader'
 import Login from './features/auth/Login'
 import Register from './features/auth/Register'
+import AdminDashboard from './pages/AdminDashboard'
 
 function App() {
   const [isBooting, setIsBooting] = useState(true)
@@ -25,6 +26,7 @@ function App() {
         <Route path="/" element={<Navigate to="/login" replace />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/admin-dashboard" element={<AdminDashboard />} />
         <Route path="*" element={<Navigate to="/login" replace />} />
       </Routes>
     </BrowserRouter>
