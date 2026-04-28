@@ -357,6 +357,7 @@ function Messenger() {
               </button>
             </form>
           </main>
+        )}
       </div>
     </div>
   )
