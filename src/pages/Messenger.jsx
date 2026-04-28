@@ -100,10 +100,10 @@ function Messenger() {
         {/* Panel / User List */}
         <section className="messenger-panel">
           <header className="panel-header">
-            <h2>Messenger</h2>
+            <h2>Messages</h2>
             <div className="search-bar">
               <i className="ri-search-line"></i>
-              <input type="text" placeholder="Search" />
+              <input type="text" placeholder="Search conversations..." />
             </div>
           </header>
           
@@ -114,7 +114,7 @@ function Messenger() {
                 className={`user-item ${activeChat.id === chat.id ? 'active' : ''}`}
                 onClick={() => setActiveChat(chat)}
               >
-                <div className="user-avatar">
+                <div className="user-avatar" style={{ background: chat.online ? 'linear-gradient(135deg, #6557ff, #4e44cc)' : '' }}>
                   {chat.avatar}
                   {chat.online && <span className="status-dot"></span>}
                 </div>
@@ -138,12 +138,13 @@ function Messenger() {
               <div className="user-avatar">{activeChat.avatar}</div>
               <div>
                 <h3>{activeChat.name}</h3>
-                <p>Online</p>
+                <p>{activeChat.online ? 'Active Now' : 'Offline'}</p>
               </div>
             </div>
             <div className="chat-actions">
-              <i className="ri-search-line"></i>
-              <i className="ri-more-2-fill"></i>
+              <i className="ri-phone-line"></i>
+              <i className="ri-vidicon-line"></i>
+              <i className="ri-information-line"></i>
             </div>
           </header>
 
@@ -163,19 +164,22 @@ function Messenger() {
 
           <form className="chat-input-area" onSubmit={handleSendMessage}>
             <div className="input-wrapper">
+              <div className="input-actions">
+                <i className="ri-add-line"></i>
+              </div>
               <input 
                 type="text" 
-                placeholder="Message..." 
+                placeholder="Type a message..." 
                 value={inputText}
                 onChange={(e) => setInputText(e.target.value)}
               />
               <div className="input-actions">
-                <i className="ri-attachment-2"></i>
-                <i className="ri-emotion-line"></i>
+                <i className="ri-emotion-happy-line"></i>
+                <i className="ri-image-line"></i>
               </div>
             </div>
             <button type="submit" className="send-btn">
-              <i className="ri-send-plane-2-fill"></i>
+              <i className="ri-send-plane-fill"></i>
             </button>
           </form>
         </main>
