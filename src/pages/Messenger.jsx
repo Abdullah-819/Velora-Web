@@ -151,62 +151,116 @@ function Messenger() {
         {/* Panel / User List */}
         <section className="messenger-panel">
           <header className="panel-header">
-            <h2>{currentTab.charAt(0).toUpperCase() + currentTab.slice(1)}</h2>
+            <h2>{currentTab === 'settings' ? 'Settings' : currentTab.charAt(0).toUpperCase() + currentTab.slice(1)}</h2>
             <div className="search-bar">
               <i className="ri-search-line"></i>
               <input type="text" placeholder="Search..." />
             </div>
           </header>
-
+          
           <div className="user-list">
-            {filteredChats.map(chat => (
-              <div
-                key={chat.id}
-                className={`user-item ${activeChat.id === chat.id ? 'active' : ''}`}
-                onClick={() => handleSelectChat(chat)}
-              >
-                <div className="user-avatar" style={{ background: chat.online ? 'linear-gradient(135deg, #6557ff, #4e44cc)' : '' }}>
-                  {chat.avatar}
-                  {chat.online && <span className="status-dot"></span>}
-                </div>
-                <div className="user-info">
-                  <h4>{chat.name} {chat.isFavorite && <i className="ri-star-fill" style={{ color: '#ffc107', fontSize: '0.8rem' }}></i>}</h4>
-                  <p>{chat.isBlocked ? '[Blocked]' : chat.lastMessage}</p>
-                </div>
-                <div className="user-meta">
-                  <span>{chat.time}</span>
-                  {chat.unread > 0 && <span className="unread-count">{chat.unread}</span>}
+            {currentTab === 'settings' ? (
+              <div className="settings-list">
+                <div className="settings-profile-header">
+                  <div className="settings-avatar">{userProfile.avatar}</div>
+                  <div className="settings-profile-info">
+                    <h4>{userProfile.name}</h4>
+                    <p>Available</p>
+                  </div>
                 </div>
 
-                {/* Actions Trigger */}
-                <div
-                  className="item-actions-trigger"
-                  onClick={(e) => {
-                    e.stopPropagation()
-                    setOpenMenuId(openMenuId === chat.id ? null : chat.id)
-                  }}
-                >
-                  <i className="ri-more-2-fill"></i>
-
-                  {openMenuId === chat.id && (
-                    <div className="context-menu">
-                      <div className="context-menu-item" onClick={() => toggleFavorite(chat.id)}>
-                        <i className={chat.isFavorite ? 'ri-star-line' : 'ri-star-fill'}></i>
-                        {chat.isFavorite ? 'Remove Favorite' : 'Mark Favorite'}
-                      </div>
-                      <div className="context-menu-item" onClick={() => startEditing(chat)}>
-                        <i className="ri-edit-line"></i>
-                        Update Name
-                      </div>
-                      <div className="context-menu-item danger" onClick={() => toggleBlock(chat.id)}>
-                        <i className="ri-forbid-line"></i>
-                        {chat.isBlocked ? 'Unblock User' : 'Block User'}
-                      </div>
-                    </div>
-                  )}
+                <div className="settings-nav-item active">
+                  <i className="ri-computer-line"></i>
+                  <div className="nav-text">
+                    <span>General</span>
+                    <p>Startup and close</p>
+                  </div>
+                </div>
+                <div className="settings-nav-item" onClick={updateProfileName}>
+                  <i className="ri-user-3-line"></i>
+                  <div className="nav-text">
+                    <span>Profile</span>
+                    <p>Name, profile photo</p>
+                  </div>
+                </div>
+                <div className="settings-nav-item">
+                  <i className="ri-key-2-line"></i>
+                  <div className="nav-text">
+                    <span>Account</span>
+                    <p>Security notifications</p>
+                  </div>
+                </div>
+                <div className="settings-nav-item">
+                  <i className="ri-lock-line"></i>
+                  <div className="nav-text">
+                    <span>Privacy</span>
+                    <p>Blocked contacts, disappearing messages</p>
+                  </div>
+                </div>
+                <div className="settings-nav-item">
+                  <i className="ri-chat-3-line"></i>
+                  <div className="nav-text">
+                    <span>Chats</span>
+                    <p>Theme, wallpaper, chat settings</p>
+                  </div>
+                </div>
+                <div className="settings-nav-item">
+                  <i className="ri-notification-3-line"></i>
+                  <div className="nav-text">
+                    <span>Notifications</span>
+                    <p>Messages, groups, sounds</p>
+                  </div>
                 </div>
               </div>
-            ))}
+            ) : (
+              filteredChats.map(chat => (
+                <div 
+                  key={chat.id} 
+                  className={`user-item ${activeChat.id === chat.id ? 'active' : ''}`}
+                  onClick={() => handleSelectChat(chat)}
+                >
+                  <div className="user-avatar" style={{ background: chat.online ? 'linear-gradient(135deg, #6557ff, #4e44cc)' : '' }}>
+                    {chat.avatar}
+                    {chat.online && <span className="status-dot"></span>}
+                  </div>
+                  <div className="user-info">
+                    <h4>{chat.name} {chat.isFavorite && <i className="ri-star-fill" style={{ color: '#ffc107', fontSize: '0.8rem' }}></i>}</h4>
+                    <p>{chat.isBlocked ? '[Blocked]' : chat.lastMessage}</p>
+                  </div>
+                  <div className="user-meta">
+                    <span>{chat.time}</span>
+                    {chat.unread > 0 && <span className="unread-count">{chat.unread}</span>}
+                  </div>
+
+                  <div 
+                    className="item-actions-trigger" 
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      setOpenMenuId(openMenuId === chat.id ? null : chat.id)
+                    }}
+                  >
+                    <i className="ri-more-2-fill"></i>
+                    
+                    {openMenuId === chat.id && (
+                      <div className="context-menu">
+                        <div className="context-menu-item" onClick={() => toggleFavorite(chat.id)}>
+                          <i className={chat.isFavorite ? 'ri-star-line' : 'ri-star-fill'}></i>
+                          {chat.isFavorite ? 'Remove Favorite' : 'Mark Favorite'}
+                        </div>
+                        <div className="context-menu-item" onClick={() => startEditing(chat)}>
+                          <i className="ri-edit-line"></i>
+                          Update Name
+                        </div>
+                        <div className="context-menu-item danger" onClick={() => toggleBlock(chat.id)}>
+                          <i className="ri-forbid-line"></i>
+                          {chat.isBlocked ? 'Unblock User' : 'Block User'}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              ))
+            )}
           </div>
         </section>
 
@@ -234,77 +288,13 @@ function Messenger() {
 
         {/* Main Content Area: Chat or Settings */}
         {currentTab === 'settings' ? (
-          <main className="chat-window settings-page">
-            <header className="chat-header">
-              <h3>Settings</h3>
-            </header>
-
-            <div className="settings-content">
-              <section className="settings-section">
-                <div className="section-header">
-                  <i className="ri-user-settings-line"></i>
-                  <h4>General</h4>
-                </div>
-                <div className="setting-item" onClick={updateProfileName}>
-                  <div className="setting-label">
-                    <span>Display Name</span>
-                    <p>{userProfile.name}</p>
-                  </div>
-                  <i className="ri-arrow-right-s-line"></i>
-                </div>
-              </section>
-
-              <section className="settings-section">
-                <div className="section-header">
-                  <i className="ri-shield-user-line"></i>
-                  <h4>Privacy</h4>
-                </div>
-                <div className="setting-item">
-                  <div className="setting-label">
-                    <span>Blocked Contacts</span>
-                    <p>{blockedUsers.length} users blocked</p>
-                  </div>
-                  <i className="ri-arrow-right-s-line"></i>
-                </div>
-                {blockedUsers.length > 0 && (
-                  <div className="blocked-list">
-                    {blockedUsers.map(user => (
-                      <div key={user.id} className="blocked-user-item">
-                        <span>{user.name}</span>
-                        <button onClick={() => toggleBlock(user.id)}>Unblock</button>
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </section>
-
-              <section className="settings-section">
-                <div className="section-header">
-                  <i className="ri-notification-3-line"></i>
-                  <h4>Notifications</h4>
-                </div>
-                <div className="setting-item">
-                  <div className="setting-label">
-                    <span>Push Notifications</span>
-                    <p>Enabled</p>
-                  </div>
-                  <div className="toggle-switch active"></div>
-                </div>
-              </section>
-
-              <section className="settings-section">
-                <div className="section-header">
-                  <i className="ri-image-circle-line"></i>
-                  <h4>Profile Photo</h4>
-                </div>
-                <div className="profile-upload-box">
-                  <div className="current-avatar">{userProfile.avatar}</div>
-                  <div className="upload-info">
-                    <span>Change Profile Photo</span>
-                    <p>Cloudinary integration pending backend</p>
-                  </div>
-                </div>
-              </section>
+          <main className="chat-window settings-detail">
+            <div className="settings-empty-state">
+              <div className="empty-icons">
+                <div className="empty-box"><i className="ri-file-list-3-line"></i><span>Send document</span></div>
+                <div className="empty-box"><i className="ri-user-add-line"></i><span>Add contact</span></div>
+                <div className="empty-box"><i className="ri-shining-line"></i><span>Ask Meta AI</span></div>
+              </div>
             </div>
           </main>
         ) : (
