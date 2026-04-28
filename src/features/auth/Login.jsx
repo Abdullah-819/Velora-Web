@@ -20,7 +20,7 @@ function Login() {
     const result = await dispatch(login({ email, password, role }))
 
     if (login.fulfilled.match(result)) {
-      navigate(role === 'admin' ? '/admin-dashboard' : '/login')
+      navigate(role === 'admin' ? '/admin-dashboard' : '/messenger')
     }
   }
 
