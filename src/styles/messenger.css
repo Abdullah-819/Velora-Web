@@ -1,18 +1,19 @@
-/* Messenger Page Wrapper - WhatsApp Dark Inspired Theme */
+/* Messenger Page Wrapper - Reverted to Velora Purple Theme */
 .messenger-page {
   height: 100vh;
-  padding: 0; /* Full screen feel */
+  padding: 0;
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #0c1317; /* Very dark background */
+  background: var(--bg);
   overflow: hidden;
 }
 
 .messenger-shell {
   width: 100%;
   height: 100%;
-  background: #111b21;
+  background: rgba(14, 22, 54, 0.82);
+  backdrop-filter: blur(40px);
   border: none;
   border-radius: 0;
   display: grid;
@@ -29,7 +30,7 @@
 
 /* Sidebar Styling */
 .messenger-sidebar {
-  background: #202c33;
+  background: rgba(18, 28, 68, 0.6);
   border-right: 1px solid rgba(255, 255, 255, 0.05);
   display: flex;
   flex-direction: column;
@@ -45,7 +46,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #8696a0;
+  color: #8c9cb2;
   font-size: 1.3rem;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -53,13 +54,13 @@
 }
 
 .sidebar-icon:hover {
-  background: #374248;
-  color: #e9edef;
+  background: rgba(255, 255, 255, 0.05);
+  color: #ffffff;
 }
 
 .sidebar-icon.active {
-  background: #374248;
-  color: #00a884; /* WhatsApp Green */
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--primary);
 }
 
 .sidebar-icon.active::after {
@@ -69,8 +70,9 @@
   top: 10px;
   bottom: 10px;
   width: 3px;
-  background: #00a884;
+  background: var(--primary);
   border-radius: 0 4px 4px 0;
+  box-shadow: 0 0 10px var(--primary);
 }
 
 .sidebar-bottom {
@@ -79,27 +81,26 @@
 
 /* Contact Panel */
 .messenger-panel {
-  background: #111b21;
-  border-right: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(12, 20, 50, 0.25);
+  border-right: 1px solid rgba(255, 255, 255, 0.05);
   display: flex;
   flex-direction: column;
 }
 
 .panel-header {
   padding: 16px 16px 8px;
-  background: #111b21;
 }
 
 .panel-header h2 {
   margin: 0 0 16px;
   font-size: 1.4rem;
   font-weight: 700;
-  color: #e9edef;
+  color: #ffffff;
 }
 
 .search-bar {
-  background: #202c33;
-  border: none;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 8px;
   padding: 8px 16px;
   display: flex;
@@ -108,21 +109,21 @@
 }
 
 .search-bar i {
-  color: #8696a0;
+  color: #8c9cb2;
   font-size: 0.9rem;
 }
 
 .search-bar input {
   background: transparent;
   border: none;
-  color: #e9edef;
+  color: #ffffff;
   outline: none;
   width: 100%;
   font-size: 0.9rem;
 }
 
 .search-bar input::placeholder {
-  color: #8696a0;
+  color: rgba(140, 156, 178, 0.6);
 }
 
 .user-list {
@@ -138,29 +139,28 @@
   gap: 12px;
   cursor: pointer;
   transition: background 0.2s ease;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.03);
 }
 
 .user-item:hover {
-  background: #202c33;
+  background: rgba(255, 255, 255, 0.03);
 }
 
 .user-item.active {
-  background: #2a3942;
+  background: rgba(101, 87, 255, 0.1);
 }
 
 .user-avatar {
   width: 48px;
   height: 48px;
-  border-radius: 50%; /* WhatsApp style circles */
-  background: #6a7175;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #2a3a6a, #1a2a5a);
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: 600;
   color: #ffffff;
   position: relative;
-  overflow: hidden;
 }
 
 .status-dot {
@@ -170,8 +170,8 @@
   width: 12px;
   height: 12px;
   border-radius: 50%;
-  border: 2px solid #111b21;
-  background: #00a884;
+  border: 2px solid #121c44;
+  background: #4ade80;
 }
 
 .user-info {
@@ -182,14 +182,14 @@
 .user-info h4 {
   margin: 0;
   font-size: 1rem;
-  font-weight: 500;
-  color: #e9edef;
+  font-weight: 600;
+  color: #ffffff;
 }
 
 .user-info p {
   margin: 2px 0 0;
   font-size: 0.85rem;
-  color: #8696a0;
+  color: #8c9cb2;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -204,12 +204,12 @@
 
 .user-meta span {
   font-size: 0.75rem;
-  color: #8696a0;
+  color: rgba(140, 156, 178, 0.6);
 }
 
 .unread-count {
-  background: #00a884;
-  color: #111b21;
+  background: var(--primary);
+  color: #ffffff;
   font-size: 0.75rem;
   font-weight: 700;
   min-width: 20px;
@@ -225,24 +225,14 @@
 .chat-window {
   display: flex;
   flex-direction: column;
-  background: #0b141a;
+  background: rgba(10, 15, 40, 0.2);
   position: relative;
-}
-
-/* WhatsApp Background Pattern Simulation */
-.chat-window::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image: url('https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png');
-  background-repeat: repeat;
-  opacity: 0.06;
-  pointer-events: none;
 }
 
 .chat-header {
   padding: 10px 16px;
-  background: #202c33;
+  background: rgba(18, 28, 68, 0.4);
+  backdrop-filter: blur(10px);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -263,25 +253,30 @@
 .chat-user-profile h3 {
   margin: 0;
   font-size: 1rem;
-  font-weight: 500;
-  color: #e9edef;
+  font-weight: 600;
+  color: #ffffff;
 }
 
 .chat-user-profile p {
   margin: 0;
   font-size: 0.8rem;
-  color: #8696a0;
+  color: #4ade80;
 }
 
 .chat-actions {
   display: flex;
   gap: 24px;
-  color: #aebac1;
+  color: #8c9cb2;
 }
 
 .chat-actions i {
   cursor: pointer;
   font-size: 1.2rem;
+  transition: color 0.3s ease;
+}
+
+.chat-actions i:hover {
+  color: #ffffff;
 }
 
 /* Message Bubbles Area */
@@ -293,6 +288,7 @@
   flex-direction: column;
   gap: 8px;
   z-index: 1;
+  background: radial-gradient(circle at center, rgba(101, 87, 255, 0.05) 0%, transparent 70%);
 }
 
 .message-item {
@@ -312,25 +308,27 @@
 .message-bubble {
   padding: 8px 12px;
   border-radius: 8px;
-  font-size: 0.9rem;
-  line-height: 1.4;
+  font-size: 0.95rem;
+  line-height: 1.5;
   position: relative;
-  box-shadow: 0 1px 0.5px rgba(0, 0, 0, 0.13);
+  box-shadow: 0 1px 10px rgba(0, 0, 0, 0.1);
 }
 
 .received .message-bubble {
-  background: #202c33;
-  color: #e9edef;
+  background: rgba(255, 255, 255, 0.06);
+  color: #e8eeff;
+  border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .sent .message-bubble {
-  background: #005c4b;
-  color: #e9edef;
+  background: var(--primary);
+  color: #ffffff;
+  box-shadow: 0 5px 15px rgba(101, 87, 255, 0.2);
 }
 
 .message-time {
   font-size: 0.7rem;
-  color: #8696a0;
+  color: rgba(140, 156, 178, 0.5);
   margin-top: 4px;
   display: flex;
   align-items: center;
@@ -342,14 +340,13 @@
 }
 
 .sent .message-time i {
-  color: #53bdeb; /* WhatsApp Blue ticks */
-  font-size: 1rem;
+  color: #4ade80;
 }
 
 /* Chat Input Area */
 .chat-input-area {
   padding: 10px 16px;
-  background: #202c33;
+  background: rgba(18, 28, 68, 0.4);
   display: flex;
   align-items: center;
   gap: 12px;
@@ -358,7 +355,8 @@
 
 .input-wrapper {
   flex: 1;
-  background: #2a3942;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 8px;
   padding: 0 12px;
   display: flex;
@@ -370,7 +368,7 @@
   flex: 1;
   background: transparent;
   border: none;
-  color: #e9edef;
+  color: #ffffff;
   padding: 10px 0;
   outline: none;
   font-size: 0.95rem;
@@ -379,17 +377,22 @@
 .input-actions {
   display: flex;
   gap: 16px;
-  color: #8696a0;
+  color: #8c9cb2;
 }
 
 .input-actions i {
   cursor: pointer;
   font-size: 1.4rem;
+  transition: color 0.2s ease;
+}
+
+.input-actions i:hover {
+  color: #ffffff;
 }
 
 .send-btn {
   background: transparent;
-  color: #8696a0;
+  color: var(--primary);
   border: none;
   display: flex;
   align-items: center;
@@ -407,7 +410,8 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
 }
 
 @media (max-width: 800px) {
