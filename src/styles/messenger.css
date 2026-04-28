@@ -299,9 +299,9 @@
 }
 
 .chat-header {
-  padding: 16px 24px;
+  padding: 12px 24px;
   background: rgba(2, 6, 23, 0.6);
-  backdrop-filter: blur(20px);
+  backdrop-filter: blur(24px);
   border-bottom: 1px solid var(--glass-border);
   display: flex;
   justify-content: space-between;
@@ -309,20 +309,32 @@
   z-index: 10;
 }
 
+.chat-user-profile {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+}
+
+.chat-user-profile .user-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--neon-purple), #4338CA);
+  box-shadow: 0 0 15px rgba(124, 58, 237, 0.3);
+}
+
 .chat-user-info h3 {
   margin: 0;
-  font-size: 1.1rem;
+  font-size: 1.05rem;
   font-weight: 700;
   color: #ffffff;
-  letter-spacing: 0.02em;
 }
 
 .chat-user-info p {
-  margin: 2px 0 0;
-  font-size: 0.8rem;
+  margin: 0;
+  font-size: 0.75rem;
   color: #4ade80; /* Online status */
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
   font-weight: 600;
 }
 
