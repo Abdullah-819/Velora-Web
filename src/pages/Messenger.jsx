@@ -2,11 +2,6 @@ import { useState } from 'react'
 import '../styles/messenger.css'
 
 const initialChats = [
-  {
-    id: 1,
-    name: 'User Name',
-    avatar: 'UN',
-    lastMessage: 'Lorem ipsum dolor sit amet...',
   { id: 1, name: 'Abdullah Rana', lastMessage: 'Assalam-o-Alaikum! How are you?', time: '8:56 PM', avatar: 'AR', unread: 0, online: true, isGroup: false },
   { id: 2, name: 'M Ahmed New', lastMessage: 'Voice call', time: '8:52 PM', avatar: 'MA', unread: 2, online: false, isGroup: false },
   { id: 3, name: 'Ahmad Ali', lastMessage: 'You reacted ❤️ to "sure"', time: '2:46 PM', avatar: 'AA', unread: 0, online: true, isGroup: false },
@@ -17,9 +12,9 @@ const initialChats = [
 ]
 
 const initialMessages = [
-  { id: 1, chatId: 1, text: 'Assalam-o-Alaikum!', time: '10:00 AM', sender: 'other' },
-  { id: 2, chatId: 1, text: 'Walaikum Assalam! Kia haal hai?', time: '10:05 AM', sender: 'me' },
-  { id: 3, chatId: 1, text: 'Theek hoon, aap sunao kia ho raha hai aaj kal?', time: '10:10 AM', sender: 'other' },
+  { id: 1, chatId: 1, text: 'Assalam-o-Alaikum!', time: '10:00 AM', type: 'received' },
+  { id: 2, chatId: 1, text: 'Walaikum Assalam! Kia haal hai?', time: '10:05 AM', type: 'sent' },
+  { id: 3, chatId: 1, text: 'Theek hoon, aap sunao kia ho raha hai aaj kal?', time: '10:10 AM', type: 'received' },
 ]
 
 function Messenger() {
@@ -88,13 +83,11 @@ function Messenger() {
     }
   }
 
-  const blockedUsers = chats.filter(c => c.isBlocked)
-
   const filteredChats = chats.filter(chat => {
     if (currentTab === 'favorites') return chat.isFavorite
     if (filter === 'unread') return chat.unread > 0
     if (filter === 'favorites') return chat.isFavorite
-    if (filter === 'groups') return chat.isGroup // Note: added isGroup logic if available
+    if (filter === 'groups') return chat.isGroup
     return true
   })
 
@@ -377,8 +370,6 @@ function Messenger() {
             )}
           </div>
         </section>
-          </div>
-        </section>
 
         {/* Modal for editing contact name */}
         {editingContact && (
@@ -415,60 +406,70 @@ function Messenger() {
           </main>
         ) : (
           <main className={`chat-window ${!activeChat ? 'mobile-hidden' : ''}`}>
-            <header className="chat-header">
-              <div className="chat-user-profile">
-                <div className="back-btn mobile-only" onClick={() => {
-                  setActiveChat(null)
-                  setOpenMenuId(null)
-                }}>
-                  <i className="ri-arrow-left-line"></i>
-                  {chats.some(c => c.unread > 0) && <span className="unread-back-badge">38</span>}
-                </div>
-                <div className="user-avatar">{activeChat.avatar}</div>
-                <div>
-                  <h3>{activeChat.name}</h3>
-                  <p>{activeChat.online ? 'online' : 'offline'}</p>
-                </div>
-              </div>
-              <div className="chat-actions">
-                <i className="ri-vidicon-line"></i>
-                <i className="ri-phone-line"></i>
-                <i className="ri-search-line"></i>
-                <i className="ri-more-2-fill"></i>
-              </div>
-            </header>
-
-            <div className="message-list">
-              {messages.map(msg => (
-                <div key={msg.id} className={`message-item ${msg.type}`}>
-                  <div className="message-bubble">
-                    {msg.text}
+            {activeChat ? (
+              <>
+                <header className="chat-header">
+                  <div className="chat-user-profile">
+                    <div className="back-btn mobile-only" onClick={() => {
+                      setActiveChat(null)
+                      setOpenMenuId(null)
+                    }}>
+                      <i className="ri-arrow-left-line"></i>
+                      {chats.some(c => c.unread > 0) && <span className="unread-back-badge">38</span>}
+                    </div>
+                    <div className="user-avatar">{activeChat.avatar}</div>
+                    <div>
+                      <h3>{activeChat.name}</h3>
+                      <p>{activeChat.online ? 'online' : 'offline'}</p>
+                    </div>
                   </div>
-                  <div className="message-time">
-                    {msg.time}
-                    {msg.type === 'sent' && <i className="ri-check-double-line"></i>}
+                  <div className="chat-actions">
+                    <i className="ri-vidicon-line"></i>
+                    <i className="ri-phone-line"></i>
+                    <i className="ri-search-line"></i>
+                    <i className="ri-more-2-fill"></i>
                   </div>
-                </div>
-              ))}
-            </div>
+                </header>
 
-            <form className="chat-input-area" onSubmit={handleSendMessage}>
-              <div className="input-actions">
-                <i className="ri-emotion-happy-line"></i>
-                <i className="ri-add-line"></i>
+                <div className="message-list">
+                  {messages.map(msg => (
+                    <div key={msg.id} className={`message-item ${msg.type}`}>
+                      <div className="message-bubble">
+                        {msg.text}
+                      </div>
+                      <div className="message-time">
+                        {msg.time}
+                        {msg.type === 'sent' && <i className="ri-check-double-line"></i>}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                <form className="chat-input-area" onSubmit={handleSendMessage}>
+                  <div className="input-actions">
+                    <i className="ri-emotion-happy-line"></i>
+                    <i className="ri-add-line"></i>
+                  </div>
+                  <div className="input-wrapper">
+                    <input
+                      type="text"
+                      placeholder="Type a message"
+                      value={inputText}
+                      onChange={(e) => setInputText(e.target.value)}
+                    />
+                  </div>
+                  <button type="submit" className="send-btn">
+                    {inputText.trim() ? <i className="ri-send-plane-2-fill"></i> : <i className="ri-mic-line"></i>}
+                  </button>
+                </form>
+              </>
+            ) : (
+              <div className="welcome-screen">
+                <i className="ri-messenger-line"></i>
+                <h2>Velora Messenger</h2>
+                <p>Select a chat to start messaging</p>
               </div>
-              <div className="input-wrapper">
-                <input
-                  type="text"
-                  placeholder="Type a message"
-                  value={inputText}
-                  onChange={(e) => setInputText(e.target.value)}
-                />
-              </div>
-              <button type="submit" className="send-btn">
-                {inputText.trim() ? <i className="ri-send-plane-2-fill"></i> : <i className="ri-mic-line"></i>}
-              </button>
-            </form>
+            )}
           </main>
         )}
 
