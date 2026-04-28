@@ -1,26 +1,43 @@
-/* Messenger Page Wrapper - Reverted to Velora Purple Theme */
+/* Messenger Page Wrapper - Neon Glass Command Center UI */
+:root {
+  --neon-purple: #7C3AED;
+  --neon-cyan: #22D3EE;
+  --bg-deep: #020617;
+  --bg-surface: #0F172A;
+  --glass-bg: rgba(15, 23, 42, 0.6);
+  --glass-border: rgba(255, 255, 255, 0.1);
+}
+
 .messenger-page {
   height: 100vh;
   padding: 0;
   display: flex;
   justify-content: center;
   align-items: center;
-  background: var(--bg);
+  background: radial-gradient(circle at center, #0F172A 0%, #020617 100%);
   overflow: hidden;
+  position: relative;
+}
+
+.messenger-page::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3C%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  opacity: 0.03;
+  pointer-events: none;
+  z-index: 0;
 }
 
 .messenger-shell {
   width: 100%;
   height: 100%;
-  background: rgba(14, 22, 54, 0.82);
+  background: rgba(2, 6, 23, 0.8);
   backdrop-filter: blur(40px);
-  border: none;
-  border-radius: 0;
   display: grid;
   grid-template-columns: 64px 340px 1fr;
   overflow: hidden;
-  box-shadow: none;
-  animation: fadeIn 0.5s ease-out;
+  z-index: 1;
 }
 
 @keyframes fadeIn {
