@@ -123,8 +123,8 @@ function Messenger() {
   return (
     <div className="messenger-page">
       <div className="messenger-shell">
-        {/* Sidebar */}
-        <aside className="messenger-sidebar">
+        {/* Sidebar (Desktop) */}
+        <aside className="messenger-sidebar desktop-only">
           <div className={`sidebar-icon ${currentTab === 'home' ? 'active' : ''}`} onClick={() => setCurrentTab('home')}>
             <i className="ri-home-line"></i>
           </div>
@@ -148,17 +148,41 @@ function Messenger() {
           </div>
         </aside>
 
-        {/* Panel / User List */}
-        <section className="messenger-panel">
+        {/* Panel / User List OR Settings List */}
+        <section className={`messenger-panel ${activeChat && currentTab !== 'settings' ? 'mobile-hidden' : ''}`}>
           <header className="panel-header">
-            <h2>{currentTab === 'settings' ? 'Settings' : currentTab.charAt(0).toUpperCase() + currentTab.slice(1)}</h2>
+            <div className="header-top mobile-only">
+              <h2>{currentTab === 'settings' ? 'Settings' : 'Chats'}</h2>
+              <div className="header-actions">
+                <i className="ri-more-2-fill"></i>
+                <i className="ri-camera-line"></i>
+                <div className="add-btn"><i className="ri-add-line"></i></div>
+              </div>
+            </div>
+            <h2 className="desktop-only">{currentTab === 'settings' ? 'Settings' : 'Chats'}</h2>
             <div className="search-bar">
               <i className="ri-search-line"></i>
-              <input type="text" placeholder="Search..." />
+              <input type="text" placeholder="Ask Meta AI or Search" />
             </div>
+
+            {currentTab === 'messenger' && (
+              <div className="filter-pills mobile-only">
+                <div className="pill active">All</div>
+                <div className="pill">Unread</div>
+                <div className="pill">Favorites</div>
+                <div className="pill">Groups</div>
+              </div>
+            )}
           </header>
           
           <div className="user-list">
+            {currentTab === 'messenger' && (
+              <div className="archived-section">
+                <i className="ri-archive-line"></i>
+                <span>Archived</span>
+                <span className="archived-count">13</span>
+              </div>
+            )}
             {currentTab === 'settings' ? (
               <div className="settings-list">
                 <div className="settings-profile-header">
@@ -298,9 +322,13 @@ function Messenger() {
             </div>
           </main>
         ) : (
-          <main className="chat-window">
+          <main className={`chat-window ${!activeChat ? 'mobile-hidden' : ''}`}>
             <header className="chat-header">
               <div className="chat-user-profile">
+                <div className="back-btn mobile-only" onClick={() => setActiveChat(null)}>
+                  <i className="ri-arrow-left-line"></i>
+                  {chats.find(c => c.unread > 0) && <span className="unread-back-badge">38</span>}
+                </div>
                 <div className="user-avatar">{activeChat.avatar}</div>
                 <div>
                   <h3>{activeChat.name}</h3>
@@ -348,6 +376,36 @@ function Messenger() {
             </form>
           </main>
         )}
+
+        {/* Mobile Navigation Bar */}
+        <nav className="mobile-nav mobile-only">
+          <div className="nav-item">
+            <i className="ri-donut-chart-line"></i>
+            <span>Updates</span>
+          </div>
+          <div className="nav-item">
+            <i className="ri-phone-line"></i>
+            <span>Calls</span>
+          </div>
+          <div className="nav-item">
+            <i className="ri-group-line"></i>
+            <span>Communities</span>
+          </div>
+          <div className="nav-item active">
+            <div className="nav-badge">38</div>
+            <i className="ri-chat-3-fill"></i>
+            <span>Chats</span>
+          </div>
+          <div className="nav-item">
+            <div className="nav-avatar">A</div>
+            <span>You</span>
+          </div>
+        </nav>
+
+        {/* Meta AI FAB */}
+        <div className="meta-ai-fab mobile-only">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/7/7b/Meta_Platforms_Inc._logo.svg" alt="Meta AI" style={{ width: '24px', filter: 'brightness(0) invert(1)' }} />
+        </div>
       </div>
     </div>
   )
