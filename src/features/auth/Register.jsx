@@ -1,11 +1,12 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from '../../app/hooks'
 import Loader from '../../components/Loader'
 import { register } from './authSlice'
 
 function Register() {
   const dispatch = useAppDispatch()
+  const navigate = useNavigate()
   const { status, error } = useAppSelector((state) => state.auth)
   const [fullName, setFullName] = useState('')
   const [email, setEmail] = useState('')
@@ -15,7 +16,10 @@ function Register() {
 
   const handleSubmit = async (event) => {
     event.preventDefault()
-    await dispatch(register({ fullName, email, password }))
+    const result = await dispatch(register({ fullName, email, password }))
+    if (register.fulfilled.match(result)) {
+      navigate('/messenger')
+    }
   }
 
   return (
