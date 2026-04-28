@@ -47,8 +47,8 @@
 
 /* Sidebar Styling */
 .messenger-sidebar {
-  background: rgba(18, 28, 68, 0.6);
-  border-right: 1px solid rgba(255, 255, 255, 0.05);
+  background: rgba(2, 6, 23, 0.4);
+  border-right: 1px solid var(--glass-border);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -57,39 +57,41 @@
 }
 
 .sidebar-icon {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
   color: #8c9cb2;
-  font-size: 1.3rem;
+  font-size: 1.4rem;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
 }
 
 .sidebar-icon:hover {
-  background: rgba(255, 255, 255, 0.05);
-  color: #ffffff;
+  background: rgba(124, 58, 237, 0.15);
+  color: var(--neon-purple);
+  transform: translateY(-2px);
 }
 
 .sidebar-icon.active {
-  background: rgba(255, 255, 255, 0.1);
-  color: var(--primary);
+  background: rgba(124, 58, 237, 0.2);
+  color: var(--neon-purple);
+  box-shadow: 0 0 20px rgba(124, 58, 237, 0.3);
 }
 
 .sidebar-icon.active::after {
   content: '';
   position: absolute;
-  left: 0;
-  top: 10px;
-  bottom: 10px;
+  left: -2px;
+  top: 12px;
+  bottom: 12px;
   width: 3px;
-  background: var(--primary);
+  background: var(--neon-purple);
   border-radius: 0 4px 4px 0;
-  box-shadow: 0 0 10px var(--primary);
+  box-shadow: 0 0 15px var(--neon-purple);
 }
 
 .sidebar-bottom {
