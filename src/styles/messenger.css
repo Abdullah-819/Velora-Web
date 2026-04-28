@@ -597,6 +597,175 @@
   box-shadow: 0 15px 30px rgba(101, 87, 255, 0.4);
 }
 
+/* Settings Page Styling */
+.settings-page {
+  background: rgba(9, 15, 40, 0.4);
+  backdrop-filter: blur(20px);
+}
+
+.settings-content {
+  padding: 40px;
+  overflow-y: auto;
+  max-width: 800px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.settings-section {
+  margin-bottom: 40px;
+  animation: fadeIn 0.4s ease-out both;
+}
+
+.settings-section:nth-child(1) { animation-delay: 0.1s; }
+.settings-section:nth-child(2) { animation-delay: 0.2s; }
+.settings-section:nth-child(3) { animation-delay: 0.3s; }
+.settings-section:nth-child(4) { animation-delay: 0.4s; }
+
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+  color: var(--primary);
+}
+
+.section-header i {
+  font-size: 1.4rem;
+}
+
+.section-header h4 {
+  margin: 0;
+  font-size: 1.1rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.setting-item {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+  padding: 20px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-bottom: 8px;
+}
+
+.setting-item:hover {
+  background: rgba(255, 255, 255, 0.06);
+  transform: translateX(4px);
+}
+
+.setting-label span {
+  display: block;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 4px;
+}
+
+.setting-label p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #8c9cb2;
+}
+
+.toggle-switch {
+  width: 44px;
+  height: 24px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  position: relative;
+  transition: background 0.3s ease;
+}
+
+.toggle-switch::after {
+  content: '';
+  position: absolute;
+  left: 4px;
+  top: 4px;
+  width: 16px;
+  height: 16px;
+  background: #ffffff;
+  border-radius: 50%;
+  transition: left 0.3s ease;
+}
+
+.toggle-switch.active {
+  background: var(--primary);
+}
+
+.toggle-switch.active::after {
+  left: 24px;
+}
+
+.blocked-list {
+  padding: 8px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.blocked-user-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.blocked-user-item span {
+  color: #e8eeff;
+}
+
+.blocked-user-item button {
+  background: transparent;
+  border: 1px solid var(--primary);
+  color: var(--primary);
+  padding: 4px 12px;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+
+.profile-upload-box {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 24px;
+  background: rgba(101, 87, 255, 0.05);
+  border: 1px dashed rgba(101, 87, 255, 0.3);
+  border-radius: 20px;
+}
+
+.current-avatar {
+  width: 80px;
+  height: 80px;
+  background: var(--primary);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #ffffff;
+  box-shadow: 0 10px 20px rgba(101, 87, 255, 0.2);
+}
+
+.upload-info span {
+  display: block;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 4px;
+}
+
+.upload-info p {
+  margin: 0;
+  font-size: 0.85rem;
+  color: #8c9cb2;
+}
+
 @media (max-width: 800px) {
   .messenger-shell {
     grid-template-columns: 1fr;
