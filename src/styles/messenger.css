@@ -352,6 +352,8 @@
   position: relative;
   box-shadow: 0 1px 10px rgba(0, 0, 0, 0.1);
   min-width: 80px; /* Ensure room for time */
+  word-break: break-word;
+  overflow-wrap: break-word;
 }
 
 .received .message-bubble {
