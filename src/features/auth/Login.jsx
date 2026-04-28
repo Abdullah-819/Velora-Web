@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from '../../app/hooks'
+import Loader from '../../components/Loader'
 import { login } from './authSlice'
 
 function Login() {
@@ -35,7 +36,10 @@ function Login() {
           <h1>Sign In</h1>
           <p className="auth-subtitle">Access your account as user or admin.</p>
 
-          <div className="auth-role-switch" aria-label="Login role selector">
+          <div
+            className={`auth-role-switch role-${role}`}
+            aria-label="Login role selector"
+          >
             <button
               type="button"
               className={role === 'user' ? 'is-active' : ''}
@@ -76,7 +80,14 @@ function Login() {
             {error && <p className="auth-error">{error}</p>}
 
             <button type="submit" disabled={isLoading}>
-              {isLoading ? 'Signing in...' : `Sign in as ${role}`}
+              {isLoading ? (
+                <>
+                  <Loader size={16} />
+                  Signing in...
+                </>
+              ) : (
+                `Sign in as ${role}`
+              )}
             </button>
           </form>
 
