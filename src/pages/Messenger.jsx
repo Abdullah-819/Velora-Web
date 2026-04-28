@@ -151,18 +151,22 @@ function Messenger() {
         {/* Panel / User List OR Settings List */}
         <section className={`messenger-panel ${activeChat && currentTab !== 'settings' ? 'mobile-hidden' : ''}`}>
           <header className="panel-header">
+            {/* Mobile Header Elements */}
             <div className="header-top mobile-only">
               <h2>{currentTab === 'settings' ? 'Settings' : 'Chats'}</h2>
               <div className="header-actions">
-                <i className="ri-more-2-fill"></i>
                 <i className="ri-camera-line"></i>
                 <div className="add-btn"><i className="ri-add-line"></i></div>
+                <i className="ri-more-2-fill"></i>
               </div>
             </div>
-            <h2 className="desktop-only">{currentTab === 'settings' ? 'Settings' : 'Chats'}</h2>
+
+            {/* Desktop Header Elements */}
+            <h2 className="desktop-only">{currentTab === 'settings' ? 'Settings' : currentTab.charAt(0).toUpperCase() + currentTab.slice(1)}</h2>
+            
             <div className="search-bar">
               <i className="ri-search-line"></i>
-              <input type="text" placeholder="Ask Meta AI or Search" />
+              <input type="text" placeholder={activeChat ? "Search..." : "Ask Meta AI or Search"} />
             </div>
 
             {currentTab === 'messenger' && (
@@ -177,7 +181,7 @@ function Messenger() {
           
           <div className="user-list">
             {currentTab === 'messenger' && (
-              <div className="archived-section">
+              <div className="archived-section mobile-only">
                 <i className="ri-archive-line"></i>
                 <span>Archived</span>
                 <span className="archived-count">13</span>

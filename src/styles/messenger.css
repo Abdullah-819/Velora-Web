@@ -739,7 +739,25 @@
   color: #8c9cb2;
 }
 
+/* Desktop Specific Tweaks (Restoring Velora Theme) */
+.message-item.sent .message-bubble {
+  background: var(--primary) !important;
+  color: #ffffff !important;
+  box-shadow: 0 4px 12px rgba(101, 87, 255, 0.2);
+}
+
+.chat-window {
+  background: transparent !important;
+}
+
+/* Mobile Responsive Styles (WhatsApp Style) */
+.mobile-only { display: none !important; }
+.desktop-only { display: flex !important; }
+
 @media (max-width: 800px) {
+  .mobile-only { display: flex !important; }
+  .desktop-only { display: none !important; }
+
   .messenger-shell {
     grid-template-columns: 1fr;
     height: 100dvh;
@@ -842,7 +860,7 @@
   /* Chat Window on Mobile */
   .chat-window {
     background-image: url('https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png');
-    background-color: #0b141a;
+    background-color: #0b141a !important;
     background-blend-mode: overlay;
     background-size: cover;
     height: 100dvh;
@@ -889,15 +907,17 @@
   }
 
   .message-item.sent .message-bubble {
-    background: #005c4b;
-    color: #e9edef;
+    background: #005c4b !important;
+    color: #e9edef !important;
     border-bottom-right-radius: 4px;
+    box-shadow: none !important;
   }
 
   .message-item.received .message-bubble {
-    background: #202c33;
-    color: #e9edef;
+    background: #202c33 !important;
+    color: #e9edef !important;
     border-bottom-left-radius: 4px;
+    box-shadow: none !important;
   }
 
   /* Input Area */
@@ -993,7 +1013,8 @@
     box-shadow: 0 4px 12px rgba(0,0,0,0.3);
     z-index: 99;
   }
+
   .messenger-sidebar {
-    display: none;
+    display: none !important;
   }
 }
