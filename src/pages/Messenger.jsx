@@ -426,8 +426,6 @@ function Messenger() {
                   <div className="chat-actions">
                     <i className="ri-vidicon-line"></i>
                     <i className="ri-phone-line"></i>
-                    <i className="ri-search-line"></i>
-                    <i className="ri-more-2-fill"></i>
                   </div>
                 </header>
 
