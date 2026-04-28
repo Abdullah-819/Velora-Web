@@ -128,7 +128,8 @@
 
 .user-list {
   flex: 1;
-  overflow-y: auto;
+  overflow-y: overlay; /* Use overlay for a cleaner look if supported */
+  overflow-x: hidden;
   padding: 0;
 }
 
@@ -599,7 +600,7 @@
 
 /* WhatsApp Style Settings List */
 .settings-list {
-  padding: 0;
+  padding: 0 0 40px; /* Added bottom padding for scrolling space */
   display: flex;
   flex-direction: column;
 }
