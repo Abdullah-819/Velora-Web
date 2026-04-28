@@ -3,6 +3,9 @@ const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
 const ADMIN_EMAIL = 'admin@velora.com'
 const ADMIN_PASSWORD = 'Velora@Admin2026'
 
+const USER_EMAIL = 'user@velora.com'
+const USER_PASSWORD = 'password123'
+
 export const loginUser = async ({ email, password, role = 'user' }) => {
   await wait(500)
 
@@ -13,6 +16,13 @@ export const loginUser = async ({ email, password, role = 'user' }) => {
     (email !== ADMIN_EMAIL || password !== ADMIN_PASSWORD)
   ) {
     throw new Error('Invalid admin credentials')
+  }
+
+  if (
+    normalizedRole === 'user' &&
+    (email !== USER_EMAIL || password !== USER_PASSWORD)
+  ) {
+    throw new Error('Invalid user credentials')
   }
 
   return {
