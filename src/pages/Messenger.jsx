@@ -410,7 +410,7 @@ function Messenger() {
               <>
                 <header className="chat-header">
                   <div className="chat-user-profile">
-                    <div className="back-btn mobile-only" onClick={() => {
+                    <div className="back-btn-container" onClick={() => {
                       setActiveChat(null)
                       setOpenMenuId(null)
                     }}>
@@ -418,7 +418,7 @@ function Messenger() {
                       {chats.some(c => c.unread > 0) && <span className="unread-back-badge">38</span>}
                     </div>
                     <div className="user-avatar">{activeChat.avatar}</div>
-                    <div>
+                    <div className="chat-user-info">
                       <h3>{activeChat.name}</h3>
                       <p>{activeChat.online ? 'online' : 'offline'}</p>
                     </div>
