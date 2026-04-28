@@ -27,6 +27,7 @@ function Messenger() {
   const [filter, setFilter] = useState('all')
   const [editingContact, setEditingContact] = useState(null)
   const [newName, setNewName] = useState('')
+  const [isRecording, setIsRecording] = useState(false) // Added recording state
   const [userProfile, setUserProfile] = useState({
     name: 'Abdullah',
     email: 'user@velora.com',
@@ -446,21 +447,39 @@ function Messenger() {
                 </div>
 
                 <form className="chat-input-area" onSubmit={handleSendMessage}>
-                  <div className="input-actions">
-                    <i className="ri-emotion-happy-line"></i>
-                    <i className="ri-add-line"></i>
-                  </div>
-                  <div className="input-wrapper">
-                    <input
-                      type="text"
-                      placeholder="Type a message"
-                      value={inputText}
-                      onChange={(e) => setInputText(e.target.value)}
-                    />
-                  </div>
-                  <button type="submit" className="send-btn">
-                    {inputText.trim() ? <i className="ri-send-plane-2-fill"></i> : <i className="ri-mic-line"></i>}
-                  </button>
+                  {isRecording ? (
+                    <div className="recording-ui">
+                      <i className="ri-mic-fill recording-mic"></i>
+                      <span className="recording-timer">0:01</span>
+                      <span className="slide-to-cancel">Slide to cancel <i className="ri-arrow-left-s-line"></i></span>
+                      <button type="button" className="send-btn stop" onClick={() => setIsRecording(false)}>
+                        <i className="ri-send-plane-2-fill"></i>
+                      </button>
+                    </div>
+                  ) : (
+                    <>
+                      <div className="input-actions">
+                        <i className="ri-emotion-happy-line"></i>
+                        <i className="ri-add-line"></i>
+                      </div>
+                      <div className="input-wrapper">
+                        <input
+                          type="text"
+                          placeholder="Type a message"
+                          value={inputText}
+                          onChange={(e) => setInputText(e.target.value)}
+                        />
+                      </div>
+                      <button 
+                        type={inputText.trim() ? "submit" : "button"} 
+                        className="send-btn"
+                        onMouseDown={() => !inputText.trim() && setIsRecording(true)}
+                        onTouchStart={() => !inputText.trim() && setIsRecording(true)}
+                      >
+                        {inputText.trim() ? <i className="ri-send-plane-2-fill"></i> : <i className="ri-mic-line"></i>}
+                      </button>
+                    </>
+                  )}
                 </form>
               </>
             ) : (
@@ -473,8 +492,8 @@ function Messenger() {
           </main>
         )}
 
-        {/* Mobile Navigation Bar */}
-        <nav className="mobile-nav mobile-only">
+        {/* Mobile Navigation Bar - Hidden when chat is active */}
+        <nav className={`mobile-nav mobile-only ${activeChat ? 'hidden' : ''}`}>
           <div className={`nav-item ${currentTab === 'updates' ? 'active' : ''}`} onClick={() => setCurrentTab('updates')}>
             <i className="ri-donut-chart-line"></i>
             <span>Updates</span>
@@ -498,10 +517,12 @@ function Messenger() {
           </div>
         </nav>
 
-        {/* Meta AI FAB */}
-        <div className="meta-ai-fab mobile-only">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/7/7b/Meta_Platforms_Inc._logo.svg" alt="Meta AI" style={{ width: '24px', filter: 'brightness(0) invert(1)' }} />
-        </div>
+        {/* Meta AI FAB - Hidden when chat is active */}
+        {!activeChat && (
+          <div className="meta-ai-fab mobile-only">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/7/7b/Meta_Platforms_Inc._logo.svg" alt="Meta AI" style={{ width: '24px', filter: 'brightness(0) invert(1)' }} />
+          </div>
+        )}
       </div>
     </div>
   )
