@@ -19,52 +19,64 @@ function Register() {
 
   return (
     <main className="auth-page">
-      <section className="auth-card">
-        <p className="auth-brand">Velora Web</p>
-        <h1>Create account</h1>
-        <p className="auth-subtitle">Get started with secure team messaging.</p>
+      <section className="auth-shell">
+        <aside className="auth-visual auth-visual-register">
+          <div className="auth-visual-scene">
+            <div className="auth-stand" />
+            <div className="auth-screen" />
+            <div className="auth-person" />
+          </div>
+          <h2>Create your workspace identity</h2>
+          <p>Set up your profile and start building your team communication hub.</p>
+        </aside>
 
-        <form className="auth-form" onSubmit={handleSubmit}>
-          <label htmlFor="fullName">Full name</label>
-          <input
-            id="fullName"
-            type="text"
-            placeholder="John Doe"
-            value={fullName}
-            onChange={(event) => setFullName(event.target.value)}
-            required
-          />
+        <section className="auth-card auth-card-accent">
+          <p className="auth-brand">Velora Web</p>
+          <h1>Sign Up</h1>
+          <p className="auth-subtitle">Create your account and get started in minutes.</p>
 
-          <label htmlFor="email">Email</label>
-          <input
-            id="email"
-            type="email"
-            placeholder="you@example.com"
-            value={email}
-            onChange={(event) => setEmail(event.target.value)}
-            required
-          />
+          <form className="auth-form" onSubmit={handleSubmit}>
+            <label htmlFor="fullName">Full name</label>
+            <input
+              id="fullName"
+              type="text"
+              placeholder="John Doe"
+              value={fullName}
+              onChange={(event) => setFullName(event.target.value)}
+              required
+            />
 
-          <label htmlFor="password">Password</label>
-          <input
-            id="password"
-            type="password"
-            placeholder="Create password"
-            value={password}
-            onChange={(event) => setPassword(event.target.value)}
-            required
-          />
+            <label htmlFor="email">Email</label>
+            <input
+              id="email"
+              type="email"
+              placeholder="you@example.com"
+              value={email}
+              onChange={(event) => setEmail(event.target.value)}
+              required
+            />
 
-          {error && <p className="auth-error">{error}</p>}
+            <label htmlFor="password">Password</label>
+            <input
+              id="password"
+              type="password"
+              placeholder="Create password"
+              value={password}
+              onChange={(event) => setPassword(event.target.value)}
+              required
+            />
 
-          <button type="submit" disabled={isLoading}>
-            {isLoading ? 'Creating account...' : 'Create account'}
-          </button>
-        </form>
+            {error && <p className="auth-error">{error}</p>}
 
-        <p className="auth-footer">
-          Already have an account? <Link to="/login">Sign in</Link>
-        </p>
+            <button type="submit" disabled={isLoading}>
+              {isLoading ? 'Creating account...' : 'Create account'}
+            </button>
+          </form>
+
+          <p className="auth-footer">
+            Already have an account? <Link to="/login">Sign in</Link>
+          </p>
+        </section>
       </section>
     </main>
   )
