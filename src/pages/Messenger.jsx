@@ -2,19 +2,17 @@ import { useState } from 'react'
 import '../styles/messenger.css'
 
 const initialChats = [
-  { id: 1, name: 'Abdullah Rana', lastMessage: 'Assalam-o-Alaikum! How are you?', time: '8:56 PM', avatar: 'AR', unread: 0, online: true, isGroup: false },
-  { id: 2, name: 'M Ahmed New', lastMessage: 'Voice call', time: '8:52 PM', avatar: 'MA', unread: 2, online: false, isGroup: false },
-  { id: 3, name: 'Ahmad Ali', lastMessage: 'You reacted ❤️ to "sure"', time: '2:46 PM', avatar: 'AA', unread: 0, online: true, isGroup: false },
-  { id: 4, name: 'Ali Raza', lastMessage: 'Missed voice call', time: '12:44 PM', avatar: 'AR', unread: 1, online: false, isGroup: false },
-  { id: 5, name: 'Computer Networks FA24', lastMessage: 'Ahmad: Event win karna walo ko 10 marks...', time: '11:43 AM', avatar: 'CN', unread: 5, online: true, isGroup: true },
-  { id: 6, name: 'Alliyan Khan', lastMessage: 'Yaar device toh dy dy main jaany laga hoon...', time: '11:00 AM', avatar: 'AK', unread: 1, online: false, isGroup: false },
-  { id: 7, name: 'Abdullah Qureshi', lastMessage: 'Incoming call', time: '1:51 AM', avatar: 'AQ', unread: 0, online: true, isGroup: false },
+  { id: 2, name: 'Abdullah Rana', lastMessage: 'Assalam-o-Alaikum! How are you?', time: '8:56 PM', avatar: 'AR', unread: 0, online: true, isGroup: false },
+  { id: 3, name: 'M Ahmed New', lastMessage: 'Voice call', time: '8:52 PM', avatar: 'MA', unread: 2, online: false, isGroup: false },
+  { id: 4, name: 'Ahmad Ali', lastMessage: 'You reacted ❤️ to "sure"', time: '2:46 PM', avatar: 'AA', unread: 0, online: true, isGroup: false },
+  { id: 5, name: 'Ali Raza', lastMessage: 'Missed voice call', time: '12:44 PM', avatar: 'AR', unread: 1, online: false, isGroup: false },
+  { id: 6, name: 'Computer Networks FA24', lastMessage: 'Ahmad: Event win karna walo ko 10 marks...', time: '11:43 AM', avatar: 'CN', unread: 5, online: true, isGroup: true },
+  { id: 7, name: 'Alliyan Khan', lastMessage: 'Yaar device toh dy dy main jaany laga hoon...', time: '11:00 AM', avatar: 'AK', unread: 1, online: false, isGroup: false },
 ]
 
 const initialMessages = [
-  { id: 1, chatId: 1, text: 'Assalam-o-Alaikum!', time: '10:00 AM', type: 'received' },
-  { id: 2, chatId: 1, text: 'Walaikum Assalam! Kia haal hai?', time: '10:05 AM', type: 'sent' },
-  { id: 3, chatId: 1, text: 'Theek hoon, aap sunao kia ho raha hai aaj kal?', time: '10:10 AM', type: 'received' },
+  { id: 100, chatId: 2, text: 'Assalam-o-Alaikum!', time: '10:00 AM', type: 'received' },
+  { id: 101, chatId: 2, text: 'Walaikum Assalam! Kia haal hai?', time: '10:05 AM', type: 'sent' },
 ]
 
 function Messenger() {
@@ -41,10 +39,11 @@ function Messenger() {
 
   const handleSendMessage = (e) => {
     e.preventDefault()
-    if (!inputText.trim()) return
+    if (!inputText.trim() || !activeChat) return
 
     const newMessage = {
       id: messages.length + 1,
+      chatId: activeChat.id,
       text: inputText,
       time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
       type: 'sent',
@@ -139,7 +138,7 @@ function Messenger() {
             {/* Desktop Header Elements */}
             <h2 className="desktop-only">{currentTab === 'settings' ? 'Settings' : currentTab.charAt(0).toUpperCase() + currentTab.slice(1)}</h2>
             <h1 className="mobile-only section-title">{currentTab === 'messenger' ? 'Chats' : currentTab.charAt(0).toUpperCase() + currentTab.slice(1)}</h1>
-            
+
             {(currentTab === 'messenger' || currentTab === 'settings') && (
               <div className="search-bar">
                 <i className="ri-search-line"></i>
@@ -156,7 +155,7 @@ function Messenger() {
               </div>
             )}
           </header>
-          
+
           <div className="user-list">
             {currentTab === 'messenger' && (
               <>
@@ -166,8 +165,8 @@ function Messenger() {
                   <span className="archived-count">11</span>
                 </div>
                 {filteredChats.map(chat => (
-                  <div 
-                    key={chat.id} 
+                  <div
+                    key={chat.id}
                     className={`user-item ${activeChat && activeChat.id === chat.id ? 'active' : ''}`}
                     onClick={() => handleSelectChat(chat)}
                   >
@@ -326,7 +325,7 @@ function Messenger() {
                   </div>
                   <h2>{userProfile.name}</h2>
                 </div>
-                
+
                 <div className="settings-card">
                   <div className="settings-item">
                     <i className="ri-archive-line"></i>
@@ -433,7 +432,7 @@ function Messenger() {
                 </header>
 
                 <div className="message-list">
-                  {messages.map(msg => (
+                  {messages.filter(msg => msg.chatId === activeChat.id).map(msg => (
                     <div key={msg.id} className={`message-item ${msg.type}`}>
                       <div className="message-bubble">
                         {msg.text}
@@ -470,8 +469,8 @@ function Messenger() {
                           onChange={(e) => setInputText(e.target.value)}
                         />
                       </div>
-                      <button 
-                        type={inputText.trim() ? "submit" : "button"} 
+                      <button
+                        type={inputText.trim() ? "submit" : "button"}
                         className="send-btn"
                         onMouseDown={() => !inputText.trim() && setIsRecording(true)}
                         onTouchStart={() => !inputText.trim() && setIsRecording(true)}

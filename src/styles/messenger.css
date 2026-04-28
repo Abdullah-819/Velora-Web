@@ -264,6 +264,8 @@
   flex-direction: column;
   background: rgba(10, 15, 40, 0.2);
   position: relative;
+  height: 100%;
+  overflow: hidden;
 }
 
 .chat-header {
@@ -320,7 +322,7 @@
 .message-list {
   flex: 1;
   overflow-y: auto;
-  padding: 20px 60px;
+  padding: 20px 40px;
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -329,7 +331,7 @@
 }
 
 .message-item {
-  max-width: 65%;
+  max-width: 80%;
   display: flex;
   flex-direction: column;
 }
@@ -1029,6 +1031,14 @@
 
   .mobile-nav.hidden {
     display: none !important;
+  }
+
+  .message-list {
+    padding: 16px 12px;
+  }
+
+  .message-item {
+    max-width: 85%;
   }
 
   /* Recording UI */
