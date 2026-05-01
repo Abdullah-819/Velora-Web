@@ -32,6 +32,7 @@ function Messenger() {
   const [isRecording, setIsRecording] = useState(false)
   const [showEmojiPicker, setShowEmojiPicker] = useState(false)
   const [showPlusMenu, setShowPlusMenu] = useState(false)
+  const [searchTerm, setSearchTerm] = useState('')
   const [userProfile, setUserProfile] = useState({
     name: 'Abdullah',
     email: 'user@velora.com',
@@ -96,6 +97,10 @@ function Messenger() {
   }
 
   const filteredChats = chats.filter(chat => {
+    const matchesSearch = chat.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
+                          chat.lastMessage.toLowerCase().includes(searchTerm.toLowerCase())
+    
+    if (!matchesSearch) return false
     if (currentTab === 'favorites') return chat.isFavorite
     if (filter === 'unread') return chat.unread > 0
     if (filter === 'favorites') return chat.isFavorite
@@ -154,7 +159,12 @@ function Messenger() {
             {(currentTab === 'messenger' || currentTab === 'settings') && (
               <div className="search-bar">
                 <i className="ri-search-line"></i>
-                <input type="text" placeholder={currentTab === 'settings' ? "Search" : "Ask Meta AI or Search"} />
+                <input 
+                  type="text" 
+                  placeholder={currentTab === 'settings' ? "Search" : "Ask Meta AI or Search"} 
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                />
               </div>
             )}
 
