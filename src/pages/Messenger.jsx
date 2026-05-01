@@ -29,7 +29,9 @@ function Messenger() {
   const [filter, setFilter] = useState('all')
   const [editingContact, setEditingContact] = useState(null)
   const [newName, setNewName] = useState('')
-  const [isRecording, setIsRecording] = useState(false) // Added recording state
+  const [isRecording, setIsRecording] = useState(false)
+  const [showEmojiPicker, setShowEmojiPicker] = useState(false)
+  const [showPlusMenu, setShowPlusMenu] = useState(false)
   const [userProfile, setUserProfile] = useState({
     name: 'Abdullah',
     email: 'user@velora.com',
@@ -55,6 +57,12 @@ function Messenger() {
 
     setMessages([...messages, newMessage])
     setInputText('')
+    setShowEmojiPicker(false)
+    setShowPlusMenu(false)
+  }
+
+  const addEmoji = (emoji) => {
+    setInputText(prev => prev + emoji)
   }
 
   const toggleFavorite = (id) => {
@@ -460,8 +468,48 @@ function Messenger() {
                   ) : (
                     <>
                       <div className="input-actions">
-                        <i className="ri-emotion-happy-line"></i>
-                        <i className="ri-add-line"></i>
+                        <div className="action-wrapper">
+                          <i
+                            className={`ri-emotion-happy-line ${showEmojiPicker ? 'active' : ''}`}
+                            onClick={() => {
+                              setShowEmojiPicker(!showEmojiPicker)
+                              setShowPlusMenu(false)
+                            }}
+                          ></i>
+                          {showEmojiPicker && (
+                            <div className="emoji-picker-popup">
+                              {['❤️', '😂', '😮', '😢', '🔥', '👏', '👍', '🙏', '✨', '💯', '📍', '✅'].map(emoji => (
+                                <span key={emoji} onClick={() => addEmoji(emoji)}>{emoji}</span>
+                              ))}
+                            </div>
+                          )}
+                        </div>
+
+                        <div className="action-wrapper">
+                          <i
+                            className={`ri-add-line ${showPlusMenu ? 'active' : ''}`}
+                            onClick={() => {
+                              setShowPlusMenu(!showPlusMenu)
+                              setShowEmojiPicker(false)
+                            }}
+                          ></i>
+                          {showPlusMenu && (
+                            <div className="plus-menu-popup">
+                              <div className="plus-menu-item" onClick={() => { alert('Media selected'); setShowPlusMenu(false); }}>
+                                <i className="ri-file-list-3-line"></i>
+                                <span>Media</span>
+                              </div>
+                              <div className="plus-menu-item" onClick={() => { alert('Photos selected'); setShowPlusMenu(false); }}>
+                                <i className="ri-image-line"></i>
+                                <span>Photos</span>
+                              </div>
+                              <div className="plus-menu-item" onClick={() => { alert('Contact selected'); setShowPlusMenu(false); }}>
+                                <i className="ri-user-add-line"></i>
+                                <span>Contact</span>
+                              </div>
+                            </div>
+                          )}
+                        </div>
                       </div>
                       <div className="input-wrapper">
                         <input
