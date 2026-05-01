@@ -495,16 +495,16 @@ function Messenger() {
                           ></i>
                           {showPlusMenu && (
                             <div className="plus-menu-popup">
-                              <div className="plus-menu-item" onClick={() => { alert('Media selected'); setShowPlusMenu(false); }}>
-                                <i className="ri-file-list-3-line"></i>
+                              <div className="plus-menu-item media" onClick={() => { alert('Media selected'); setShowPlusMenu(false); }}>
+                                <div className="plus-icon-box"><i className="ri-file-list-3-line"></i></div>
                                 <span>Media</span>
                               </div>
-                              <div className="plus-menu-item" onClick={() => { alert('Photos selected'); setShowPlusMenu(false); }}>
-                                <i className="ri-image-line"></i>
+                              <div className="plus-menu-item photos" onClick={() => { alert('Photos selected'); setShowPlusMenu(false); }}>
+                                <div className="plus-icon-box"><i className="ri-image-line"></i></div>
                                 <span>Photos</span>
                               </div>
-                              <div className="plus-menu-item" onClick={() => { alert('Contact selected'); setShowPlusMenu(false); }}>
-                                <i className="ri-user-add-line"></i>
+                              <div className="plus-menu-item contact" onClick={() => { alert('Contact selected'); setShowPlusMenu(false); }}>
+                                <div className="plus-icon-box"><i className="ri-user-add-line"></i></div>
                                 <span>Contact</span>
                               </div>
                             </div>
