@@ -2,18 +2,22 @@ import { useState } from 'react'
 import '../styles/messenger.css'
 
 const initialChats = [
-  { id: 2, name: 'Abdullah Rana', lastMessage: 'Assalam-o-Alaikum! How are you?', time: '8:56 PM', avatar: 'AR', unread: 0, online: true, isGroup: false },
-  { id: 3, name: 'M Ahmed New', lastMessage: 'Voice call', time: '8:52 PM', avatar: 'MA', unread: 2, online: false, isGroup: false },
-  { id: 4, name: 'Ahmad Ali', lastMessage: 'You reacted ❤️ to "sure"', time: '2:46 PM', avatar: 'AA', unread: 0, online: true, isGroup: false },
-  { id: 5, name: 'Ali Raza', lastMessage: 'Missed voice call', time: '12:44 PM', avatar: 'AR', unread: 1, online: false, isGroup: false },
-  { id: 6, name: 'Computer Networks FA24', lastMessage: 'Ahmad: Event win karna walo ko 10 marks...', time: '11:43 AM', avatar: 'CN', unread: 5, online: true, isGroup: true },
-  { id: 7, name: 'Alliyan Khan', lastMessage: 'Yaar device toh dy dy main jaany laga hoon...', time: '11:00 AM', avatar: 'AK', unread: 1, online: false, isGroup: false },
+  { id: 1, name: 'Abdullah Rana', avatar: 'AR', lastMessage: 'Welcome to Velora Messenger!', time: '12:00 PM', unread: 0, online: true },
+  { id: 2, name: 'Velora Dev', avatar: 'VD', lastMessage: 'The new theme is looking great!', time: '1:30 PM', unread: 0, online: true },
+  { id: 3, name: 'Velora Dev Team', avatar: 'VT', lastMessage: 'Deployment successful.', time: '2:45 PM', unread: 0, online: false },
+  { id: 4, name: 'SQA Team', avatar: 'ST', lastMessage: 'Regression testing in progress.', time: '3:15 PM', unread: 0, online: true },
+  { id: 5, name: 'HR Team', avatar: 'HT', lastMessage: 'Please check your recent updates.', time: '5:00 PM', unread: 0, online: false },
 ]
 
 const initialMessages = [
-  { id: 100, chatId: 2, text: 'Assalam-o-Alaikum!', time: '10:00 AM', type: 'received' },
-  { id: 101, chatId: 2, text: 'Walaikum Assalam! Kia haal hai?', time: '10:05 AM', type: 'sent' },
+  { id: 1, chatId: 1, text: 'Hello Abdullah! Welcome to the new Velora interface.', time: '11:55 AM', type: 'received' },
+  { id: 2, chatId: 1, text: 'Welcome to Velora Messenger!', time: '12:00 PM', type: 'received' },
+  { id: 3, chatId: 2, text: 'The new theme is looking great!', time: '1:30 PM', type: 'received' },
+  { id: 4, chatId: 3, text: 'Deployment successful.', time: '2:45 PM', type: 'received' },
+  { id: 5, chatId: 4, text: 'Regression testing in progress.', time: '3:15 PM', type: 'received' },
+  { id: 6, chatId: 5, text: 'Please check your recent updates.', time: '5:00 PM', type: 'received' },
 ]
+
 
 function Messenger() {
   const [currentTab, setCurrentTab] = useState('messenger')
@@ -481,9 +485,17 @@ function Messenger() {
               </>
             ) : (
               <div className="welcome-screen">
-                <i className="ri-messenger-line"></i>
-                <h2>Velora Messenger</h2>
-                <p>Select a chat to start messaging</p>
+                <div className="welcome-content">
+                  <div className="welcome-logo">
+                    <i className="ri-messenger-fill"></i>
+                  </div>
+                  <h1>Velora Messenger</h1>
+                  <p>Connect with your world through seamless, encrypted messaging.<br />Your conversations are synchronized across all your devices.</p>
+                  <div className="encryption-notice">
+                    <i className="ri-lock-fill"></i>
+                    <span>End-to-end encrypted</span>
+                  </div>
+                </div>
               </div>
             )}
           </main>
