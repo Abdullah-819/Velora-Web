@@ -1078,7 +1078,7 @@
   }
 
   .message-item {
-    max-width: 85%;
+    width: 100%;
   }
 
   /* Recording UI */
