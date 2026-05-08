@@ -20,6 +20,17 @@
   box-shadow: var(--shadow-md);
 }
 
+.btn-primary:active:not(:disabled) {
+  transform: translateY(1px);
+  background-color: var(--color-primary-dark);
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-primary:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
 .btn-secondary {
   background-color: var(--color-gray-100);
   color: var(--color-gray-900);
