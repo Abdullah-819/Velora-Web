@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from '../../app/hooks'
 import Loader from '../../components/Loader'
+import { Button } from '../../components'
 import { login } from './authSlice'
 
 function Login() {
@@ -85,16 +86,9 @@ function Login() {
 
             {error && <p className="auth-error">{error}</p>}
 
-            <button type="submit" disabled={isLoading}>
-              {isLoading ? (
-                <>
-                  <Loader size={16} />
-                  Signing in...
-                </>
-              ) : (
-                `Sign in as ${role}`
-              )}
-            </button>
+            <Button type="submit" loading={isLoading} className="w-full">
+              Sign in as {role}
+            </Button>
           </form>
 
           <p className="auth-footer">
