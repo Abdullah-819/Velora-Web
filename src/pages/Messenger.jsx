@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { EmptyState } from '../components'
 import '../styles/messenger.css'
 
 const initialChats = [
@@ -186,26 +187,34 @@ function Messenger() {
                   <span>Archived</span>
                   <span className="archived-count">11</span>
                 </div>
-                {filteredChats.map(chat => (
-                  <div
-                    key={chat.id}
-                    className={`user-item ${activeChat && activeChat.id === chat.id ? 'active' : ''}`}
-                    onClick={() => handleSelectChat(chat)}
-                  >
-                    <div className="user-avatar" style={{ background: chat.online ? 'linear-gradient(135deg, #6557ff, #4e44cc)' : '' }}>
-                      {chat.avatar}
-                      {chat.online && <span className="status-dot"></span>}
+                {filteredChats.length > 0 ? (
+                  filteredChats.map(chat => (
+                    <div
+                      key={chat.id}
+                      className={`user-item ${activeChat && activeChat.id === chat.id ? 'active' : ''}`}
+                      onClick={() => handleSelectChat(chat)}
+                    >
+                      <div className="user-avatar" style={{ background: chat.online ? 'linear-gradient(135deg, #6557ff, #4e44cc)' : '' }}>
+                        {chat.avatar}
+                        {chat.online && <span className="status-dot"></span>}
+                      </div>
+                      <div className="user-info">
+                        <h4>{chat.name} {chat.isFavorite && <i className="ri-star-fill" style={{ color: '#ffc107', fontSize: '0.8rem' }}></i>}</h4>
+                        <p>{chat.lastMessage}</p>
+                      </div>
+                      <div className="user-meta">
+                        <span className={chat.unread > 0 ? 'unread-time' : ''}>{chat.time}</span>
+                        {chat.unread > 0 && <span className="unread-count">{chat.unread}</span>}
+                      </div>
                     </div>
-                    <div className="user-info">
-                      <h4>{chat.name} {chat.isFavorite && <i className="ri-star-fill" style={{ color: '#ffc107', fontSize: '0.8rem' }}></i>}</h4>
-                      <p>{chat.lastMessage}</p>
-                    </div>
-                    <div className="user-meta">
-                      <span className={chat.unread > 0 ? 'unread-time' : ''}>{chat.time}</span>
-                      {chat.unread > 0 && <span className="unread-count">{chat.unread}</span>}
-                    </div>
-                  </div>
-                ))}
+                  ))
+                ) : (
+                  <EmptyState 
+                    title="No chats found" 
+                    description="Try searching for something else or start a new conversation." 
+                    icon={<i className="ri-chat-delete-line"></i>}
+                  />
+                )}
               </>
             )}
 
