@@ -1,7 +1,10 @@
 {
   "name": "velora-web",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "description": "Premium High-End Messenger and Core Communication Platform",
+  "author": "Velora Development Team",
+  "license": "MIT",
   "type": "module",
   "scripts": {
     "dev": "vite",
