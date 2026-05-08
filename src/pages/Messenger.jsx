@@ -114,24 +114,24 @@ function Messenger() {
       <div className="messenger-shell">
         {/* Sidebar (Desktop) */}
         <aside className="messenger-sidebar desktop-only">
-          <div className={`sidebar-icon ${currentTab === 'home' ? 'active' : ''}`} onClick={() => setCurrentTab('home')}>
+          <div className={`sidebar-icon ${currentTab === 'home' ? 'active' : ''}`} onClick={() => setCurrentTab('home')} aria-label="Home">
             <i className="ri-home-line"></i>
           </div>
-          <div className={`sidebar-icon ${currentTab === 'messenger' ? 'active' : ''}`} onClick={() => setCurrentTab('messenger')}>
+          <div className={`sidebar-icon ${currentTab === 'messenger' ? 'active' : ''}`} onClick={() => setCurrentTab('messenger')} aria-label="Messenger">
             <i className="ri-messenger-line"></i>
           </div>
-          <div className={`sidebar-icon ${currentTab === 'favorites' ? 'active' : ''}`} onClick={() => setCurrentTab('favorites')}>
+          <div className={`sidebar-icon ${currentTab === 'favorites' ? 'active' : ''}`} onClick={() => setCurrentTab('favorites')} aria-label="Favorites">
             <i className="ri-star-line"></i>
           </div>
-          <div className={`sidebar-icon ${currentTab === 'contacts' ? 'active' : ''}`} onClick={() => setCurrentTab('contacts')}>
+          <div className={`sidebar-icon ${currentTab === 'contacts' ? 'active' : ''}`} onClick={() => setCurrentTab('contacts')} aria-label="Contacts">
             <i className="ri-contacts-line"></i>
           </div>
-          <div className={`sidebar-icon ${currentTab === 'settings' ? 'active' : ''}`} onClick={() => setCurrentTab('settings')}>
+          <div className={`sidebar-icon ${currentTab === 'settings' ? 'active' : ''}`} onClick={() => setCurrentTab('settings')} aria-label="Settings">
             <i className="ri-settings-3-line"></i>
           </div>
 
           <div className="sidebar-bottom">
-            <div className="sidebar-icon">
+            <div className="sidebar-icon" aria-label="Logout">
               <i className="ri-logout-box-line"></i>
             </div>
           </div>
