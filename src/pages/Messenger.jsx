@@ -553,12 +553,12 @@ function Messenger() {
             ) : (
               <div className="welcome-screen">
                 <div className="welcome-content">
-                  <div className="welcome-logo">
+                  <div className="welcome-logo animate-pop">
                     <i className="ri-messenger-fill"></i>
                   </div>
-                  <h1>Velora Messenger</h1>
-                  <p>Connect with your world through seamless, encrypted messaging.<br />Your conversations are synchronized across all your devices.</p>
-                  <div className="encryption-notice">
+                  <h1 className="animate-fade-up-1">Velora Messenger</h1>
+                  <p className="animate-fade-up-2">Connect with your world through seamless, encrypted messaging.<br />Your conversations are synchronized across all your devices.</p>
+                  <div className="encryption-notice animate-fade-up-3">
                     <i className="ri-lock-fill"></i>
                     <span>End-to-end encrypted</span>
                   </div>
