@@ -151,3 +151,13 @@ a, button, input, select, textarea {
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.05);
 }
+/* Global Avatar Hover Effect */
+.user-avatar, .profile-avatar-large, .avatar-img {
+  transition: transform var(--transition-base), box-shadow var(--transition-base);
+  cursor: pointer;
+}
+
+.user-avatar:hover, .profile-avatar-large:hover, .avatar-img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
