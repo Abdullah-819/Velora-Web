@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from '../../app/hooks'
 import Loader from '../../components/Loader'
+import { Button } from '../../components'
 import { register } from './authSlice'
 
 function Register() {
@@ -73,16 +74,9 @@ function Register() {
 
             {error && <p className="auth-error">{error}</p>}
 
-            <button type="submit" disabled={isLoading}>
-              {isLoading ? (
-                <>
-                  <Loader size={16} />
-                  Creating account...
-                </>
-              ) : (
-                'Create account'
-              )}
-            </button>
+            <Button type="submit" loading={isLoading} className="w-full">
+              Create account
+            </Button>
           </form>
 
           <p className="auth-footer">
