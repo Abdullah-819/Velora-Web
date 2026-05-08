@@ -69,6 +69,17 @@ graph TB
 
 ---
 
+## 🔄 Data Flow & Interaction
+Velora Web follows a unidirectional data flow combined with real-time event handling:
+
+1.  **User Action**: User interacts with a component (e.g., sends a message).
+2.  **State Logic**: The component calls a `useChat` or `useAuth` hook method.
+3.  **API Transport**: Hooks trigger an `Axios` request for persistence or a `Socket.io` event for real-time delivery.
+4.  **Global Update**: On response, the `Redux` store is updated, triggering a re-render of dependent UI elements.
+5.  **Real-time Sync**: External events from the `Socket.io` server update the store directly to maintain cross-device synchronization.
+
+---
+
 ## 🚀 Project Overview
 **Velora Web** is a premium, high-performance communication platform designed for real-time interaction and administrative control. Built with a modern React stack, it offers a cinematic user experience inspired by industry-leading messenger applications.
 
