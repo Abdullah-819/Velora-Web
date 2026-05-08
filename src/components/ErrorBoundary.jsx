@@ -4,6 +4,12 @@ import React from 'react';
  * ErrorBoundary Component
  * Catches JavaScript errors anywhere in their child component tree,
  * logs those errors, and displays a fallback UI instead of the component tree that crashed.
+ * 
+ * @component
+ * @example
+ * <ErrorBoundary>
+ *   <MyComponent />
+ * </ErrorBoundary>
  */
 class ErrorBoundary extends React.Component {
   constructor(props) {
