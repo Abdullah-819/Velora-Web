@@ -161,3 +161,10 @@ a, button, input, select, textarea {
   transform: scale(1.05);
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
+
+.text-highlight {
+  background-color: rgba(101, 87, 255, 0.3);
+  color: #fff;
+  padding: 0 2px;
+  border-radius: 2px;
+}
