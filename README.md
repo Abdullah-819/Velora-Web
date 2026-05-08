@@ -113,4 +113,12 @@ The project follows a feature-based architecture:
 - `src/components`: Shared UI components.
 
 ---
+
+## 🤝 Contributing
+Contributions are welcome! Please read our [Contributing Guide](CONTRIBUTING.md) and [Code of Conduct](CODE_OF_CONDUCT.md) before submitting a pull request.
+
+## 📄 License
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+---
 *Designed with ❤️ by the Velora Development Team*
