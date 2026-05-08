@@ -2,6 +2,7 @@ export { default as AdminSidebar } from './AdminSidebar';
 export { default as Button } from './Button';
 export { default as AdminTopbar } from './AdminTopbar';
 export { default as AppBootLoader } from './AppBootLoader';
+export { default as EmptyState } from './EmptyState';
 export { default as Loader } from './Loader';
 export { default as ErrorBoundary } from './ErrorBoundary';
 export { default as LoadingSpinner } from './LoadingSpinner';
