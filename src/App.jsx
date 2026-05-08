@@ -6,6 +6,13 @@ import Register from './features/auth/Register'
 import AdminDashboard from './pages/AdminDashboard'
 import Messenger from './pages/Messenger'
 
+/**
+ * Main Application Component.
+ * Handles top-level routing, bootloading sequence, and global state initialization.
+ * 
+ * @component
+ * @returns {JSX.Element} The rendered application.
+ */
 function App() {
   const [isBooting, setIsBooting] = useState(true)
 

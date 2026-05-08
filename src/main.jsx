@@ -1,3 +1,9 @@
+/**
+ * @fileoverview Entry point for the Velora Web application.
+ * Initializes the React root and wraps the App with necessary providers.
+ * @version 1.0.0
+ */
+
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { Provider } from 'react-redux'
