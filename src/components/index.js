@@ -7,6 +7,7 @@ export { default as EmptyState } from './EmptyState';
 export { default as Loader } from './Loader';
 export { default as ErrorBoundary } from './ErrorBoundary';
 export { default as LoadingSpinner } from './LoadingSpinner';
+export { default as Modal } from './Modal';
 export { default as Skeleton } from './Skeleton';
 export { default as PanelCard } from './PanelCard';
 export { default as StatCard } from './StatCard';
