@@ -110,7 +110,7 @@ The project follows a feature-based architecture:
 - `src/features`: Logic and state for specific features (chat, auth, admin).
 - `src/pages`: Main view components.
 - `src/services`: Integration with external APIs and WebSockets.
-- `src/components`: Shared UI components.
+- `src/components`: Shared UI components (Button, LoadingSpinner, EmptyState, Skeleton).
 
 ---
 
