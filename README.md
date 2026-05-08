@@ -5,30 +5,30 @@ The following diagram illustrates the high-level architecture of the Velora Core
 
 ```mermaid
 graph TB
-    subgraph UI ["USER INTERFACES (Frontend Layer)"]
+    subgraph UI ["🌐 USER INTERFACES"]
         direction LR
-        Web["💻 Web Application (React/Vite)"]
-        Mobile["📱 Mobile Responsive Views"]
-        AdminUI["🛠️ Admin Control Panel"]
+        Web["💻 Web Application<br/>(React/Vite)"]
+        Mobile["📱 Mobile Responsive<br/>Views"]
+        AdminUI["🛠️ Admin Control<br/>Panel"]
     end
 
-    subgraph FE ["FE LOGIC LAYER: STATE & ROUTING"]
+    subgraph FE ["🧠 FRONTEND LOGIC (State & Routing)"]
         direction TB
         subgraph State ["State Management"]
-            Hooks["Hooks (Custom React Hooks)"]
-            Redux["Redux Toolkit (Auth/Core)"]
+            Hooks["⚓ Custom Hooks"]
+            Redux["⚡ Redux Toolkit"]
         end
         
         subgraph Routes ["Routing System"]
-            Boot["Bootloaders / AuthGuard"]
-            Router["Router (React Router v7)"]
+            Boot["🚀 Bootloaders"]
+            Router["🛤️ React Router v7"]
         end
     end
 
-    subgraph Comm ["COMM & CORE SERVICES LAYER"]
+    subgraph Comm ["📡 COMM & SERVICES LAYER"]
         direction TB
-        subgraph Transport ["Communication Layer"]
-            Axios["📡 Axios (REST)"]
+        subgraph Transport ["Transport"]
+            Axios["🌐 Axios (REST)"]
             Socket["⚡ Socket.io-client"]
         end
         
@@ -39,11 +39,11 @@ graph TB
         end
     end
 
-    subgraph Data ["BACKEND & STORAGE (Conceptual)"]
+    subgraph Data ["☁️ BACKEND & DATA STORAGE"]
         direction TB
-        API["Velora Core API (Node/Express)"]
-        WS["Socket.io Server"]
-        DB["[(Database - PG/Mongo)]"]
+        API["⚙️ Velora Core API<br/>(Node/Express)"]
+        WS["🔥 Socket.io Server"]
+        DB["💾 [(PostgreSQL/MongoDB)]"]
     end
 
     %% Connections
@@ -55,10 +55,16 @@ graph TB
     Socket <--> WS
     
     %% Styling
-    style UI fill:#f0f4ff,stroke:#6557ff,stroke-width:2px
-    style FE fill:#fff5f0,stroke:#ff6b6b,stroke-width:2px
-    style Comm fill:#f0fff4,stroke:#2ecc71,stroke-width:2px
-    style Data fill:#f4f4f4,stroke:#333,stroke-dasharray: 5 5
+    classDef default font-family:Inter,sans-serif;
+    classDef ui fill:#e0e7ff,stroke:#6366f1,stroke-width:2px,color:#1e1b4b;
+    classDef logic fill:#fff7ed,stroke:#f97316,stroke-width:2px,color:#7c2d12;
+    classDef comm fill:#f0fdf4,stroke:#22c55e,stroke-width:2px,color:#064e3b;
+    classDef data fill:#f8fafc,stroke:#64748b,stroke-width:2px,stroke-dasharray: 5 5,color:#0f172a;
+
+    class UI,Web,Mobile,AdminUI ui;
+    class FE,State,Routes,Hooks,Redux,Boot,Router logic;
+    class Comm,Transport,Blocks,Axios,Socket,AuthSrv,ChatSrv,AdminSrv comm;
+    class Data,API,WS,DB data;
 ```
 
 ---
