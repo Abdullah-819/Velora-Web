@@ -12,3 +12,4 @@ export { default as Skeleton } from './Skeleton';
 export { default as PanelCard } from './PanelCard';
 export { default as StatCard } from './StatCard';
 export { default as Tooltip } from './Tooltip';
+export { default as TypingIndicator } from './TypingIndicator';
