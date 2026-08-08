@@ -1,7 +1,7 @@
 # Velora Web — Full Stack Messenger & Core
 
 ## 📐 Architecture Overview
-The following diagram illustrates the high-level architecture of the Velora Core system, showcasing the interaction between the React frontend, real-time communication layers, and backend services.
+The following diagram illustrates how the high-level architecture of the Velora Core system, showcasing the interaction between the React frontend, real-time communication layers, and backend services.
 
 ```mermaid
 graph TB
