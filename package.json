@@ -11,6 +11,7 @@
     "build": "vite build",
     "prebuild": "npm run lint",
     "lint": "eslint .",
+    "format": "prettier --write .",
     "preview": "vite preview"
   },
   "dependencies": {
